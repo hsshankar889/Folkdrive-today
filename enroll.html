@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FolkDrive - Enroll Now</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS for animations */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Fixed action buttons */
+        .fixed-action-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .fixed-action-btn.active-animation {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .action-button {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            border: none;
+            border-radius: 9999px; /* full rounded */
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .action-button:hover {
+            background-color: #2563eb; /* Blue-600 */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-button {
+            background-color: #25d366; /* WhatsApp Green */
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1da851;
+        }
+
+        /* Fade-in animations */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.7s ease-out;
+        }
+
+        .fade-in.active-fade-in {
+            opacity: 1;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .fade-in-up.active-animation {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header backdrop blur */
+        header {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque white */
+        }
+
+        /* Hero Header Section Styles */
+        .hero-header-section {
+            position: relative;
+            padding-top: 124px; /* Adjusted for gap */
+            padding-bottom: 80px;
+            overflow: hidden; /* Ensure background doesn't overflow */
+        }
+
+        .hero-header-section .background-image {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1557804506-669a67965da0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            z-index: -2; /* Behind overlay and content */
+        }
+
+        .hero-header-section .overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for text readability */
+            z-index: -1; /* Between background and content */
+        }
+
+        .hero-header-section .content-wrapper {
+            position: relative;
+            z-index: 1; /* Above overlay */
+            color: white; /* Text color for contrast */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            .hero-header-section {
+                padding-top: 112px; /* Adjusted for gap on desktop */
+                padding-bottom: 120px;
+            }
+        }
+
+        /* Enrollment Form Modal Styles */
+        #enrollment-form-modal {
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        #enrollment-form-modal.show-modal {
+            display: flex; /* Show flex when active */
+            opacity: 1;
+        }
+
+        #enrollment-form-modal .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 30rem; /* max-w-lg from original form */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        #enrollment-form-modal.show-modal .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #close-enrollment-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #6b7280;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        #close-enrollment-modal:hover {
+            color: #1f2937;
+        }
+
+        /* Blinking animation for the Enroll button */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .blink-button {
+            animation: blink 1.5s infinite;
+        }
+    </style>
+</head>
+<body class="bg-blue-50 text-gray-800 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-md text-gray-800 shadow-sm fixed top-0 left-0 w-full z-50 fade-in">
+        <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between">
+            <a href="index.html" class="mb-4 md:mb-0">
+                <!-- Placeholder for logo. Replace with your actual logo path. -->
+                <img src="./logo-removebg-preview.jpg" alt="FolkDrive Logo" class="rounded-lg h-14 w-auto">
+            </a>
+            <nav>
+                <ul class="flex flex-wrap justify-center md:space-x-2 text-sm md:text-base">
+                    <li><a href="./index.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="./services.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                    <li><a href="./methodology.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
+                    <li><a href="./about.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                    <li><a href="./contact.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+                    <!-- New Enroll Now button in header -->
+                    <li><a href="./enroll.html" class="flex items-center space-x-2 bg-purple-600 text-white px-3 py-2 rounded-md font-semibold transition-colors duration-300 hover:bg-purple-700"><i class="fas fa-user-plus"></i> <span>Enroll Now</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Header Section -->
+    <section class="hero-header-section text-center fade-in-up">
+        <div class="background-image"></div>
+        <div class="overlay"></div>
+        <div class="content-wrapper container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Unlock Your Sales Potential!</h1>
+            <p class="text-xl md:text-2xl font-semibold mb-8">Join our 2-Day Sales Certification Program:</p>
+            
+            <ul class="list-none space-y-3 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+                <li class="flex items-center justify-center space-x-3">
+                    <i class="fas fa-check-circle text-blue-300 text-2xl"></i>
+                    <span>4 hours/session, 2 days</span>
+                </li>
+                <li class="flex items-center justify-center space-x-3">
+                    <i class="fas fa-award text-blue-300 text-2xl"></i>
+                    <span>Certification upon completion</span>
+                </li>
+                <li class="flex items-center justify-center space-x-3">
+                    <i class="fas fa-rupee-sign text-blue-300 text-2xl"></i>
+                    <span>All this for just ₹999!</span>
+                </li>
+            </ul>
+            <!-- New Enroll Now button in hero section with blinking animation -->
+            <button id="open-enrollment-modal-btn" class="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg mt-8 blink-button">
+                Enroll Now!
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <div class="container mx-auto px-4 py-12 md:py-16">
+            <div class="text-center fade-in-up bg-white p-8 rounded-2xl shadow-lg">
+                <p class="text-lg md:text-xl text-red-600 font-semibold mb-8">Don't miss out! Enroll now and boost your sales skills!</p>
+
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-blue-600 after:rounded-full">
+                    After completing our 2-Day Sales Certification Program, you'll know:
+                </h2>
+                <ol class="list-decimal list-inside text-left text-lg md:text-xl text-gray-700 space-y-2 mb-12 max-w-2xl mx-auto">
+                    <li>How to create need for your product</li>
+                    <li>Understand customer needs effectively</li>
+                    <li>Position your product strategically</li>
+                    <li>Minimize negotiations and close deals smoothly</li>
+                    <li>Create win-win strategies</li>
+                    <li>Identify and handle objections confidently</li>
+                </ol>
+                <!-- The enrollment form is now in a modal, so it's removed from here -->
+            </div>
+        </div>
+    </main>
+    
+    <!-- Fixed Action Buttons -->
+    <div class="fixed-action-btn fade-in">
+        <button id="scroll-to-top" class="action-button scroll-button" aria-label="Scroll to Top" style="display: none;">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button id="scroll-to-bottom" class="action-button scroll-button" aria-label="Scroll to Bottom">
+            <i class="fas fa-arrow-down"></i>
+        </button>
+        <a href="./contact.html" target="_blank" class="action-button whatsapp-button" aria-label="Chat on WhatsApp">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-12 mt-auto fade-in">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+                <!-- Footer Column 1: Brand -->
+                <div>
+                    <a href="index.html" class="inline-block mb-4 text-3xl font-extrabold text-white transition-colors duration-300">Folk<span class="text-blue-500">drive</span></a>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-300">Empowering Sales Teams to unlock their full potential, enabling them to drive results and exceed targets.</p>
+                </div>
+                <!-- Footer Column 2: Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white tracking-wider">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./about.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-info-circle w-4"></i> <span>About Us</span></a></li>
+                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                        <li><a href="./methodology.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-rocket w-4"></i> <span>Methodology</span></a></li>
+                    </ul>
+                </div>
+                <!-- Footer Column 3: Contact -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white tracking-wider">Contact</h4>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:info@folkdrive.com" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-envelope w-4"></i> <span>info@folkdrive.com</span></a></li>
+                        <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-phone w-4"></i> <span>9916245531</span></a></li>
+                        <li><a href="./contact.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-address-book w-4"></i> <span>Contact Form</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm border-t border-blue-800 pt-8">
+                <p class="text-gray-400">&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.<br> Powered by <a style="color:white;" href="https://www.folkdrive.in/">Folkdrive India Pvt Ltd</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Enrollment Form Modal HTML -->
+    <div id="enrollment-form-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[1000] p-4 hidden">
+        <div class="modal-content bg-white p-8 rounded-2xl shadow-2xl max-w-lg w-full relative">
+            <button id="close-enrollment-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold leading-none">&times;</button>
+            <div class="bg-blue-50 p-8 rounded-xl shadow-inner w-full border border-blue-200">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Enrollment Form</h3>
+                <form id="enrollmentForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-left text-gray-700 text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" placeholder="Your Full Name" required>
+                    </div>
+                    <div>
+                        <label for="contactNumber" class="block text-left text-gray-700 text-sm font-medium mb-2">Contact Number</label>
+                        <input type="tel" id="contactNumber" name="contactNumber" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" placeholder="e.g., +919876543210" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-left text-gray-700 text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" placeholder="you@example.com" required>
+                    </div>
+                    <button type="submit" class="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition-colors duration-300 shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>Send via WhatsApp</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Global Variables & Elements ---
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
+            const enrollmentForm = document.getElementById('enrollmentForm'); // Form inside the modal
+            
+            // New elements for the enrollment form modal
+            const openEnrollmentModalBtn = document.getElementById('open-enrollment-modal-btn');
+            const enrollmentFormModal = document.getElementById('enrollment-form-modal');
+            const closeEnrollmentModalBtn = document.getElementById('close-enrollment-modal');
+            
+            // --- Scroll Button Logic ---
+            const handleScroll = () => {
+                const scrollY = window.scrollY;
+                const pageHeight = document.body.offsetHeight;
+                const viewportHeight = window.innerHeight;
+
+                // Show/hide "scroll to top"
+                if (scrollY > 300) {
+                    scrollToTopBtn.style.display = 'flex';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+
+                // Show/hide "scroll to bottom"
+                if (pageHeight - (scrollY + viewportHeight) > 300) {
+                    scrollToBottomBtn.style.display = 'flex';
+                } else {
+                    scrollToBottomBtn.style.display = 'none';
+                }
+            };
+            
+            scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            scrollToBottomBtn.addEventListener('click', () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+            window.addEventListener('scroll', handleScroll);
+
+            // --- Enrollment Form Modal Logic ---
+            // Function to show the enrollment form modal
+            const showEnrollmentModal = () => {
+                enrollmentFormModal.classList.add('show-modal');
+            };
+
+            // Function to hide the enrollment form modal
+            const hideEnrollmentModal = () => {
+                enrollmentFormModal.classList.remove('show-modal');
+                // Optionally clear form fields when closed
+                enrollmentForm.reset();
+            };
+
+            // Event listener to open the modal from the hero section button
+            openEnrollmentModalBtn.addEventListener('click', showEnrollmentModal);
+
+            // Event listener to close the modal from the close button
+            closeEnrollmentModalBtn.addEventListener('click', hideEnrollmentModal);
+
+            // Event listener to close the modal if clicking outside the content
+            enrollmentFormModal.addEventListener('click', (event) => {
+                if (event.target === enrollmentFormModal) {
+                    hideEnrollmentModal();
+                }
+            });
+
+            // --- WhatsApp Form Submission Logic ---
+            enrollmentForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const name = document.getElementById('name').value;
+                const contactNumber = document.getElementById('contactNumber').value;
+                const email = document.getElementById('email').value;
+
+                // WhatsApp number for FolkDrive
+                const whatsappNumber = '+919916245531'; 
+
+                // Construct the message
+                const message = `Hello FolkDrive team, I'd like to enroll in the 2-Day Sales Certification Program.
+Name: ${name}
+Contact Number: ${contactNumber}
+Email: ${email}
+I'm interested in boosting my sales skills!`;
+
+                // Encode the message for URL
+                const encodedMessage = encodeURIComponent(message);
+
+                // Create the WhatsApp URL
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+                // Open WhatsApp in a new tab
+                window.open(whatsappUrl, '_blank');
+
+                // Hide the modal after submission
+                hideEnrollmentModal();
+            });
+
+            // --- Page Load & Initialization ---
+            const init = () => {
+                // Apply initial animations
+                document.querySelector('header').classList.add('active-fade-in');
+                document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('active-animation'));
+                document.querySelector('.fixed-action-btn').classList.add('active-animation');
+                document.querySelector('footer').classList.add('active-fade-in');
+                
+                // Initialize scroll buttons visibility
+                handleScroll();
+
+                // Set footer year
+                document.getElementById('currentYear').textContent = new Date().getFullYear();
+            };
+            
+            // Run initialization
+            init();
+        });
+    </script>
+</body>
+</html>

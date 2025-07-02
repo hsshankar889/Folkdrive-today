@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Methodology | Folkdrive</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <title>Methodology - FolkDrive</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Custom Properties for the Tailwind Blue and Gray Theme */
         :root {
@@ -35,11 +32,11 @@
         }
 
         /* Prevents body scroll during preloader display */
-        .no-scroll {
-            overflow: hidden;
-        }
+        /* .no-scroll { /* This class is no longer applied to body as preloader is removed */
+        /* overflow: hidden; */
+        /* } */
 
-        /* --- Preloader Styles --- */
+        /* --- Preloader Styles (kept in CSS but HTML removed) --- */
         #preloader {
             position: fixed;
             inset: 0;
@@ -124,13 +121,13 @@
         }
         /* Active link styling - uses primary color */
         header nav a.active {
-            background-color: var(--primary-color);
+            background-color: var(--primary-color); /* Set to primary-color */
             color: white;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
         }
         /* Inactive link styling and hover effects - uses text-secondary and a subtle hover color */
         header nav a:not(.active) {
-            color: var(--text-secondary);
+            color: var(--text-secondary); /* text-gray-600 */
         }
         header nav a:not(.active):hover {
             background-color: #eff6ff; /* blue-50 */
@@ -216,7 +213,7 @@
             text-align: center;
             border-top-left-radius: 16px; /* rounded-t-xl */
             border-top-right-radius: 16px; /* rounded-t-xl */
-            background-color: var(--primary-color); /* Set to Navy Blue */
+            background-color: var(--primary-color); /* Set to primary-color */
         }
 
         .card-body {
@@ -307,7 +304,7 @@
             bottom: 0;
             width: 80px; /* w-20 */
             height: 4px; /* h-1 */
-            background-color: var(--primary-color); /* Navy Blue underline */
+            background-color: var(--primary-color); /* primary-color underline */
             border-radius: 9999px; /* rounded-full */
         }
 
@@ -330,7 +327,7 @@
             background-color: #f3f4f6; /* gray-100, a very light gray */
             padding: 24px; /* p-6 */
             border-radius: 8px; /* rounded-lg */
-            border-left: 4px solid var(--primary-color); /* border-l-4 with Navy Blue */
+            border-left: 4px solid var(--primary-color); /* border-l-4 with primary-color */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05); /* shadow-md */
             transition: all 0.3s ease; /* transition-all duration-300 */
             width: 280px; /* Fixed width for training cards */
@@ -573,6 +570,14 @@
             width: auto;
             border-radius: 4px; /* Subtle round corners */
         }
+        /* Specific styling for the Folkdrive text in the footer logo */
+        .footer-logo span {
+            color: var(--primary-color); /* Use primary color for 'drive' part */
+        }
+        .footer-logo:first-child { /* Target the 'Folk' part if it's not a span */
+            color: white; /* Ensure 'Folk' is white */
+        }
+
 
         /* Responsive Design: Tablet and Mobile Adjustments */
         @media (max-width: 1200px) {
@@ -671,24 +676,21 @@
                 font-size: 24px;
             }
         }
-
     </style>
 </head>
-<body class="no-scroll">
-    <div id="preloader">
-        <div class="flex-col">
-            <img src="./logo-removebg-preview.jpg" alt="FolkDrive Logo">
-            <div class="spinner"></div>
-        </div>
-    </div>
-
+<body class="bg-[var(--light-bg)] flex flex-col min-h-screen">
+    <!-- Header Section (consistent with other pages) -->
     <header>
         <div class="container">
+            <!-- Logo area -->
             <a href="index.html">
-                <img src="./logo-removebg-preview.jpg" alt="FolkDrive Logo">
+                <!-- FolkDrive Logo with a placeholder image and rounded corners for aesthetics -->
+                <img src="./logo-removebg-preview.jpg" alt="FolkDrive Logo" onerror="this.src='https://placehold.co/48x48/1A2B42/FFFFFF?text=Logo';">
             </a>
+            <!-- Navigation Menu -->
             <nav>
                 <ul>
+                    <!-- Navigation Links with icons, hover effects, and active state styling -->
                     <li><a href="./index.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
                     <li><a href="./services.html"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
                     <li><a href="./methodology.html" class="active"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
@@ -709,6 +711,7 @@
 
         <div class="main-content-container">
             <section class="methodology-section">
+                <!-- SPIN Selling Card -->
                 <div class="feature-card">
                     <div class="card-header">SPIN Selling</div>
                     <div class="card-body">
@@ -723,6 +726,7 @@
                     </div>
                 </div>
 
+                <!-- Challenger Sale Card -->
                 <div class="feature-card">
                     <div class="card-header">Challenger Sale</div>
                     <div class="card-body">
@@ -736,6 +740,7 @@
                     </div>
                 </div>
 
+                <!-- Value-Based Selling Card -->
                 <div class="feature-card">
                     <div class="card-header">Value-Based Selling</div>
                     <div class="card-body">
@@ -753,8 +758,8 @@
 
             <div class="media-container-video">
                 <div class="bg-gray-800">
-                    <video src="./istockphoto-1036766612-640_adpp_is.mp4" autoplay loop muted playsinline type="video/mp4"></video>
-                    <div class="text-gray-300" style="display:none;">Engaging Sales Video coming soon!</div>
+                    <video src="./istockphoto-1036766612-640_adpp_is.mp4" autoplay loop muted playsinline type="video/mp4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"></video>
+                    <div class="text-gray-300 p-4 items-center justify-center h-full" style="display:none;">Engaging Sales Video coming soon!</div>
                 </div>
             </div>
 
@@ -786,6 +791,7 @@
                     </div>
                 </div>
             </section>
+
             <section class="training-section">
                 <h2 class="section-heading">Hands-on Training & Skill Development</h2>
                 <div class="grid">
@@ -825,15 +831,15 @@
 
             <div class="media-container-video">
                 <div class="bg-gray-800">
-                    <video src="./istockphoto-1036872804-640_adpp_is.mp4" autoplay loop muted playsinline controls type="video/mp4"></video>
-                    <div class="text-gray-300" style="display:none;">More video content coming soon!</div>
+                    <video src="./istockphoto-1036872804-640_adpp_is.mp4" autoplay loop muted playsinline controls type="video/mp4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"></video>
+                    <div class="text-gray-300 p-4 items-center justify-center h-full" style="display:none;">More video content coming soon!</div>
                 </div>
             </div>
         </div>
     </main>
 
     <div class="fixed-action-btn">
-        <button id="scroll-to-top" class="action-button scroll-button" aria-label="Scroll to Top">
+        <button id="scroll-to-top" class="action-button scroll-button" aria-label="Scroll to Top" style="display: none;">
             <i class="fas fa-arrow-up"></i>
         </button>
         <button id="scroll-to-bottom" class="action-button scroll-button" aria-label="Scroll to Bottom">
@@ -848,77 +854,100 @@
         <div class="container">
             <div class="footer-content">
                 <div class="text-center md:text-left">
-                    <a href="index.html" class="text-3xl font-extrabold text-[var(--light-bg-color)] hover:text-[var(--light-bg-color)]"><span style="color: white;">Folkdrive</span></a>
-                    <p class="mt-4 text-sm leading-relaxed text-[var(--light-bg-color)]">Empowering Sales <br>Teams unlocks their full potential, enabling them to drive results and exceed targets.</p>
+                    <a href="index.html" class="footer-logo"><span class="text-white">Folkdrive</span></a>
+                    <p class="mt-4 text-sm leading-relaxed text-gray-300">Empowering Sales <br>Teams unlocks their full potential, enabling them to drive results and exceed targets.</p>
                 </div>
-                <div class="footer-col">
-                    <h4>About Folkdrive</h4>
-                    <ul>
-                        <li><a href="./about.html"><i class="fas fa-info-circle"></i> Our Story</a></li>
-                        <li><a href="./methodology.html"><i class="fas fa-gear"></i> Our Approach</a></li>
-                        <li><a href="./services.html"><i class="fas fa-briefcase"></i> Services Offered</a></li>
+                <div class="text-center md:text-left">
+                    <h4 class="font-bold text-xl mb-4 text-white">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./about.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                        <li><a href="./methodology.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
                     </ul>
                 </div>
-                
-                <div class="footer-col">
-                    <h4>Connect With Us</h4>
-                    <ul>
-                        <li><a href="mailto:info@folkdrive.com"><i class="fas fa-envelope"></i> info@folkdrive.com</a></li>
-                        <li><a href="tel:+919916245531"><i class="fas fa-phone"></i> +91 99162 45531</a></li>
-                        <li><a href="https://wa.me/919916245531" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                <div class="text-center md:text-left">
+                    <h4 class="font-bold text-xl mb-4 text-white">Contact</h4>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:info@folkdrive.com" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-envelope"></i> <span>info@folkdrive.com</span></a></li>
+                        <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-phone"></i> <span>99162 45531</span></a></li>
+                        <li><a href="https://wa.me/919916245531" target="_blank" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fab fa-whatsapp"></i> <span>WhatsApp</span></a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Folkdrive. All rights reserved.</p>
+            <div class="text-center text-sm border-t border-[var(--primary-color)] pt-6">
+                <p>&copy; <span id="currentYear"></span> Folkdrive. All rights reserved.<br>Powered by <a style="color:white;" href="https://www.folkdrive.in/">Folkdrive India Pvt Ltd</a></p>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const preloader = document.getElementById('preloader');
-            const body = document.body;
+            // Dynamically sets the current year in the footer
+            const currentYearSpan = document.getElementById('currentYear');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Get references to elements for animation
             const header = document.querySelector('header');
-            // Updated selector to include the new PDCA section
-            const mainContentSections = document.querySelectorAll('.page-title-banner, .methodology-section, .media-container-video, .pdca-section, .training-section');
+            const pageTitleBanner = document.querySelector('.page-title-banner');
+            const methodologySection = document.querySelector('.methodology-section');
+            const mediaContainerVideos = document.querySelectorAll('.media-container-video');
+            const pdcaSection = document.querySelector('.pdca-section');
+            const trainingSection = document.querySelector('.training-section');
             const fixedActionBtn = document.querySelector('.fixed-action-btn');
             const footer = document.querySelector('footer');
 
-            // Simulate loading time for preloader
+            // Set initial display of fixed buttons to flex for proper layout before animation
+            fixedActionBtn.style.display = 'flex';
+
+            // Initial animations with sequential delays
+            let currentDelay = 0;
+
             setTimeout(() => {
-                preloader.style.opacity = '0';
-                preloader.addEventListener('transitionend', () => {
-                    preloader.style.display = 'none';
-                    body.classList.remove('no-scroll'); // Re-enable scrolling after preloader hides
+                header.classList.add('header-active');
+            }, currentDelay);
+            currentDelay += 300;
 
-                    // Animate in content after preloader is gone
-                    header.classList.add('header-active');
-                    fixedActionBtn.classList.add('fixed-btn-active');
-                    footer.classList.add('footer-active');
+            if (pageTitleBanner) {
+                setTimeout(() => {
+                    pageTitleBanner.classList.add('content-active');
+                }, currentDelay);
+                currentDelay += 300;
+            }
 
-                    // Use Intersection Observer for main content sections
-                    const observerOptions = {
-                        root: null, // viewport
-                        rootMargin: '0px',
-                        threshold: 0.1 // 10% of element visible
-                    };
+            if (methodologySection) {
+                setTimeout(() => {
+                    methodologySection.classList.add('content-active');
+                }, currentDelay);
+                currentDelay += 300;
+            }
 
-                    const observer = new IntersectionObserver((entries, observer) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('content-active');
-                                observer.unobserve(entry.target); // Stop observing once animated
-                            }
-                        });
-                    }, observerOptions);
+            mediaContainerVideos.forEach((videoContainer, index) => {
+                setTimeout(() => {
+                    videoContainer.classList.add('content-active');
+                }, currentDelay + (index * 100)); // Stagger video animations
+            });
+            currentDelay += (mediaContainerVideos.length * 100) + 200; // Adjust delay based on number of videos
 
-                    mainContentSections.forEach(section => {
-                        observer.observe(section);
-                    });
+            if (pdcaSection) {
+                setTimeout(() => {
+                    pdcaSection.classList.add('content-active');
+                }, currentDelay);
+                currentDelay += 300;
+            }
 
-                }, { once: true });
-            }, 1000); // Preloader visible for 1 second
+            if (trainingSection) {
+                setTimeout(() => {
+                    trainingSection.classList.add('content-active');
+                }, currentDelay);
+                currentDelay += 300;
+            }
+            
+            setTimeout(() => {
+                fixedActionBtn.classList.add('fixed-btn-active');
+                footer.classList.add('footer-active');
+            }, currentDelay);
 
             // Scroll to top/bottom functionality
             const scrollToTopBtn = document.getElementById('scroll-to-top');

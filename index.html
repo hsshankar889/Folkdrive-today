@@ -3,159 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Folkdrive | Sales & Process Efficiency</title>
-    
-    <!-- Tailwind CSS -->
+    <title>FolkDrive - Sales & Process Efficiency</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Custom Styles */
+        /* Custom CSS for animations */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
         body {
             font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* --- Preloader Styles --- */
-        #preloader {
-            transition: opacity 0.7s ease-in-out;
-        }
-        .spinner {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: 8px solid #f3f3f3; /* Light grey */
-            border-top: 8px solid #3b82f6; /* Blue-500 */
-            animation: spin 1.5s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* --- Animations --- */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-in {
-             opacity: 0;
-             transition: opacity 1s ease-out;
-        }
-        .active-animation {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .active-fade-in {
-            opacity: 1;
-        }
-        
-        /* --- Image Slider Styles --- */
+        /* Custom slide image styling for smooth transitions */
         .slide-image {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1.2s ease-in-out;
+            transition: opacity 1s ease-in-out;
             border-radius: 1rem; /* rounded-xl */
         }
+
         .slide-image.active {
             opacity: 1;
         }
-        .dot.active {
-            background-color: #3b82f6; /* bg-blue-500 */
-            transform: scale(1.25);
+
+        /* Slider dots active state */
+        .slider-dots .dot.active {
+            background-color: #3b82f6; /* Blue-500 */
+            transform: scale(1.2);
         }
 
-        /* --- Fixed Action Button Styles --- */
+        /* Fixed action buttons */
         .fixed-action-btn {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
-            z-index: 40; /* Lower than header */
+            gap: 12px;
             opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
+
         .fixed-action-btn.active-animation {
-             opacity: 1;
-             transform: scale(1);
+            opacity: 1;
+            transform: translateY(0);
         }
+
         .action-button {
-            width: 3.5rem; /* w-14 */
-            height: 3.5rem; /* h-14 */
-            border-radius: 9999px; /* rounded-full */
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            border: none;
+            border-radius: 9999px; /* full rounded */
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            border: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .action-button:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #2563eb; /* Blue-600 */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
-        .scroll-button {
-            background-color: #4b5563; /* bg-gray-600 */
-        }
-        .scroll-button:hover {
-             background-color: #1f2937; /* bg-gray-800 */
-        }
+
         .whatsapp-button {
-            background-color: #25D366;
+            background-color: #25d366; /* WhatsApp Green */
         }
+
         .whatsapp-button:hover {
-            background-color: #1DA851;
+            background-color: #1da851;
         }
-        
-        .no-scroll {
-            overflow: hidden;
+
+        /* Fade-in animations */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.7s ease-out;
+        }
+
+        .fade-in.active-fade-in {
+            opacity: 1;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .fade-in-up.active-animation {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header backdrop blur */
+        header {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque white */
+        }
+
+        /* Pop-up Banner Styles */
+        #popup-banner {
+            /* Initially hidden and transparent */
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+            /* Ensure it covers the whole screen and is on top */
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            display: flex; /* Use flex to center content */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000; /* Higher than other fixed elements */
+            padding: 1rem; /* Padding for mobile */
+        }
+
+        #popup-banner.show-popup {
+            opacity: 1;
+        }
+
+        #popup-banner .popup-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1.5rem; /* rounded-2xl */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+            max-width: 30rem; /* max-w-lg */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            /* Initial state for content animation */
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        #popup-banner.show-popup .popup-content {
+            /* Final state for content animation */
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #close-popup {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem; /* text-3xl */
+            color: #6b7280; /* gray-500 */
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        #close-popup:hover {
+            color: #1f2937; /* gray-800 */
+        }
+
+        /* Blinking animation for the Enroll button */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .blink-button {
+            animation: blink 1.5s infinite;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen no-scroll">
-    <!-- Preloader -->
-    <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-[1000]">
-        <div class="flex flex-col items-center">
-            <img src="./logo-removebg-preview.jpg" alt="FolkDrive Logo" class="h-20 w-auto mb-4 animate-pulse rounded-lg">
-            <div class="spinner"></div>
-        </div>
-    </div>
-
+<body class="bg-blue-50 text-gray-800 flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-white/80 backdrop-blur-md text-gray-800 shadow-sm fixed top-0 left-0 w-full z-50 fade-in">
+    <header class="bg-white/90 backdrop-blur-md text-gray-800 shadow-sm fixed top-0 left-0 w-full z-50 fade-in">
         <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between">
             <a href="index.html" class="mb-4 md:mb-0">
+                <!-- Placeholder for logo. Replace with your actual logo path. -->
                 <img src="./logo-removebg-preview.jpg" alt="FolkDrive Logo" class="rounded-lg h-14 w-auto">
             </a>
             <nav>
                 <ul class="flex flex-wrap justify-center md:space-x-2 text-sm md:text-base">
-                    <li><a href="./index.html" class="flex items-center space-x-2 bg-blue-500 text-white px-3 py-2 rounded-md font-semibold"><i class="fas fa-home"></i> <span>Home</span></a></li>
-                    <li><a href="./services.html" class="flex items-center space-x-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
-                    <li><a href="./methodology.html" class="flex items-center space-x-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
-                    <li><a href="./about.html" class="flex items-center space-x-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
-                    <li><a href="./contact.html" class="flex items-center space-x-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+                    <li><a href="./index.html" class="flex items-center space-x-2 bg-blue-600 text-white px-3 py-2 rounded-md font-semibold transition-colors duration-300 hover:bg-blue-700"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="./services.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                    <li><a href="./methodology.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
+                    <li><a href="./about.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                    <li><a href="./contact.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
                 </ul>
             </nav>
         </div>
     </header>
-
+    <br><br>
+<br>
     <!-- Main Content -->
     <main class="flex-grow pt-[104px] md:pt-[92px]"> <!-- Adjusted padding for new logo size -->
         <div class="container mx-auto px-4 pt-12 pb-8"> 
@@ -167,51 +216,51 @@
 
         <!-- Image Slider -->
         <div class="mb-16 image-slider w-full container mx-auto px-4 fade-in-up">
-            <div class="relative w-full min-h-[50vh] md:min-h-[70vh] overflow-hidden">
+            <div class="relative w-full min-h-[50vh] md:min-h-[70vh] overflow-hidden rounded-xl shadow-xl">
                 <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sales Acceleration" class="slide-image active" onerror="this.src='https://placehold.co/1200x600/3B82F6/FFFFFF?text=Sales+Acceleration';">
                 <img src="https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Growth Achievement" class="slide-image" onerror="this.src='https://placehold.co/1200x600/6366F1/FFFFFF?text=Growth+Achievement';">
-                <img src="https://sitescdn.wearevennture.co.uk/public/paretousa/mediahub/sales%20training-deb753bf-888c-4d37-8db6-85a0c56e3761.jpg" class="slide-image" onerror="this.src='https://placehold.co/1200x600/3B82F6/FFFFFF?text=Sales+Training';">
+                <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide-image" onerror="this.src='https://placehold.co/1200x600/3B82F6/FFFFFF?text=Sales+Training';">
                 <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide-image" alt="Process Efficiency" onerror="this.src='https://placehold.co/1200x600/6366F1/FFFFFF?text=Process+Efficiency';">
 
                 <div class="slider-nav absolute inset-y-0 w-full flex justify-between items-center px-4 z-10">
-                    <button class="arrow prev-arrow bg-white/70 text-gray-800 border-none p-3 rounded-full cursor-pointer text-2xl transition-all duration-300 hover:bg-white hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
-                    <button class="arrow next-arrow bg-white/70 text-gray-800 border-none p-3 rounded-full cursor-pointer text-2xl transition-all duration-300 hover:bg-white hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
+                    <button class="arrow prev-arrow bg-white/70 text-blue-600 border-none p-3 rounded-full cursor-pointer text-2xl transition-all duration-300 hover:bg-white hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
+                    <button class="arrow next-arrow bg-white/70 text-blue-600 border-none p-3 rounded-full cursor-pointer text-2xl transition-all duration-300 hover:bg-white hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="slider-dots absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-10">
-                    <span class="dot w-3 h-3 bg-white/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-white active" aria-label="Go to Slide 1"></span>
-                    <span class="dot w-3 h-3 bg-white/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-white" aria-label="Go to Slide 2"></span>
-                    <span class="dot w-3 h-3 bg-white/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-white" aria-label="Go to Slide 3"></span>
-                    <span class="dot w-3 h-3 bg-white/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-white" aria-label="Go to Slide 4"></span>
+                    <span class="dot w-3 h-3 bg-blue-200/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-blue-400 active" aria-label="Go to Slide 1"></span>
+                    <span class="dot w-3 h-3 bg-blue-200/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-blue-400" aria-label="Go to Slide 2"></span>
+                    <span class="dot w-3 h-3 bg-blue-200/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-blue-400" aria-label="Go to Slide 3"></span>
+                    <span class="dot w-3 h-3 bg-blue-200/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-blue-400" aria-label="Go to Slide 4"></span>
                 </div>
             </div>
         </div>
         
         <!-- Features Section -->
         <section class="main-content-section container mx-auto px-4 py-16 md:py-24 bg-white rounded-2xl shadow-lg fade-in-up">
-            <div class="text-center mb-12 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-blue-500 after:rounded-full">
+            <div class="text-center mb-12 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-blue-600 after:rounded-full">
                 <h2 class="text-gray-900 text-3xl md:text-4xl font-extrabold mb-3">Our Core Features</h2>
                 <p class="text-lg md:text-xl text-gray-600">Discover what makes us different</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Feature Card 1 -->
-                <div class="feature-card bg-gray-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-200 hover:border-blue-500">
-                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-100 text-blue-600">
+                <div class="feature-card bg-blue-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-blue-200 hover:border-blue-500">
+                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-200 text-blue-700">
                         <i class="fas fa-rocket"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Sales Process Awareness</h3>
                     <p class="leading-relaxed text-gray-600">Understanding steps from lead generation to closing deals, enabling optimized sales strategies, enhanced customer engagement, and increased conversion rates.</p>
                 </div>
                 <!-- Feature Card 2 -->
-                <div class="feature-card bg-gray-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-200 hover:border-blue-500">
-                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-100 text-blue-600">
+                <div class="feature-card bg-blue-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-blue-200 hover:border-blue-500">
+                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-200 text-blue-700">
                         <i class="fas fa-tasks"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Strategy & Implementation</h3>
                     <p class="leading-relaxed text-gray-600">By developing clear plans and executing them effectively, we help organizations drive growth, improve efficiency, and enhance customer satisfaction.</p>
                 </div>
                 <!-- Feature Card 3 -->
-                <div class="feature-card bg-gray-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-200 hover:border-blue-500">
-                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-100 text-blue-600">
+                <div class="feature-card bg-blue-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-blue-200 hover:border-blue-500">
+                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-200 text-blue-700">
                         <i class="fas fa-cog"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Evaluation & Tailoring</h3>
@@ -222,10 +271,11 @@
 
         <!-- Video Section -->
         <div class="text-center my-16 md:my-24 media-container-video fade-in-up">
-             <div class="text-center mb-12 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-blue-500 after:rounded-full">
+            <div class="text-center mb-12 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-blue-600 after:rounded-full">
                 <h2 class="text-gray-900 text-3xl md:text-4xl font-extrabold mb-3">See Our Process in Action</h2>
             </div>
             <div class="bg-gray-800 aspect-video max-w-4xl mx-auto flex items-center justify-center rounded-xl shadow-2xl overflow-hidden mt-8">
+                <!-- Ensure the video path is correct or provide a valid URL -->
                 <video src="./7947507-hd_1920_1080_30fps.mp4" autoplay loop muted playsinline class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"></video>
                 <div class="text-gray-300 text-lg p-4 items-center justify-center h-full" style="display:none;">Video content coming soon!</div>
             </div>
@@ -246,13 +296,13 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 mt-auto fade-in">
+    <footer class="bg-blue-900 text-white py-12 mt-auto fade-in">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
                 <!-- Footer Column 1: Brand -->
                 <div>
                     <a href="index.html" class="inline-block mb-4 text-3xl font-extrabold text-white transition-colors duration-300">Folk<span class="text-blue-500">drive</span></a>
-                    <p class="mt-2 text-sm leading-relaxed text-gray-400">Empowering Sales Teams to unlock their full potential, enabling them to drive results and exceed targets.</p>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-300">Empowering Sales Teams to unlock their full potential, enabling them to drive results and exceed targets.</p>
                 </div>
                 <!-- Footer Column 2: Quick Links -->
                 <div>
@@ -268,16 +318,38 @@
                     <h4 class="font-bold text-lg mb-4 text-white tracking-wider">Contact</h4>
                     <ul class="space-y-2">
                         <li><a href="mailto:info@folkdrive.com" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-envelope w-4"></i> <span>info@folkdrive.com</span></a></li>
-                        <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-phone w-4"></i> <span>+919916245531</span></a></li>
+                        <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-phone w-4"></i> <span>9916245531</span></a></li>
                         <li><a href="./contact.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-address-book w-4"></i> <span>Contact Form</span></a></li>
                     </ul>
                 </div>
             </div>
-            <div class="text-center text-sm border-t border-gray-700 pt-8">
-                <p class="text-gray-400">&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.</p>
+            <div class="text-center text-sm border-t border-blue-800 pt-8">
+                <p class="text-gray-400">&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.<br> Powered by <a style="color:white;" href="https://www.folkdrive.in/">Folkdrive India Pvt Ltd</a></p>
             </div>
         </div>
     </footer>
+
+    <!-- Pop-up Banner HTML -->
+    <div id="popup-banner" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[1000] p-4">
+        <div class="popup-content bg-white p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center relative">
+            <button id="close-popup" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold leading-none">&times;</button>
+            <div class="flex flex-col items-center justify-center mb-6">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl mb-4">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3 class="text-3xl font-extrabold text-gray-900 mb-3">Enroll Now & Unlock Your Sales Potential!</h3>
+                <ul class="text-gray-700 leading-relaxed list-disc list-inside text-left mb-6 space-y-2">
+                    <li>Boost your sales skills</li>
+                    <li>Enhance your confidence</li>
+                    <li>Drive results and exceed targets</li>
+                </ul>
+                <p class="text-gray-700 leading-relaxed mb-6">Don't miss out! Sign up today and take your sales career to the next level!</p>
+            </div>
+            <a href="./enroll.html" class="inline-block bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-md blink-button">
+                Enroll now!!!!
+            </a>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -288,8 +360,11 @@
             const nextArrow = document.querySelector('.next-arrow');
             const scrollToTopBtn = document.getElementById('scroll-to-top');
             const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
-            const preloader = document.getElementById('preloader');
-            const body = document.body;
+            
+            // Pop-up banner elements
+            const popupBanner = document.getElementById('popup-banner');
+            const closePopupBtn = document.getElementById('close-popup');
+            const popupContent = popupBanner.querySelector('.popup-content'); // The inner div containing content
             
             let currentSlide = 0;
             let slideInterval;
@@ -341,6 +416,7 @@
                 }
 
                 // Show/hide "scroll to bottom"
+                // Check if the user is near the bottom of the page
                 if (pageHeight - (scrollY + viewportHeight) > 300) {
                     scrollToBottomBtn.style.display = 'flex';
                 } else {
@@ -352,30 +428,53 @@
             scrollToBottomBtn.addEventListener('click', () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
             window.addEventListener('scroll', handleScroll);
 
+            // --- Pop-up Banner Logic ---
+            // Function to show popup
+            const showPopup = () => {
+                popupBanner.classList.add('show-popup'); // Add class to trigger opacity and transform transitions
+                // The 'display: flex' is already set in CSS, but 'hidden' class needs to be removed if it was added
+                popupBanner.style.display = 'flex'; // Ensure it's displayed
+            };
+
+            // Function to hide popup
+            const hidePopup = () => {
+                popupBanner.classList.remove('show-popup'); // Remove class to trigger reverse transitions
+                setTimeout(() => {
+                    popupBanner.style.display = 'none'; // Hide completely after transition
+                }, 500); // Match transition duration in CSS
+            };
+
+            // Close popup on button click
+            closePopupBtn.addEventListener('click', hidePopup);
+
+            // Close popup if clicking outside the content (on the overlay)
+            popupBanner.addEventListener('click', (event) => {
+                if (event.target === popupBanner) {
+                    hidePopup();
+                }
+            });
+
             // --- Page Load & Initialization ---
             const init = () => {
-                // Preloader & Content Animation
-                setTimeout(() => {
-                    preloader.style.opacity = '0';
-                    body.classList.remove('no-scroll');
-                    
-                    document.querySelector('header').classList.add('active-fade-in');
-                    document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('active-animation'));
-                    document.querySelector('.fixed-action-btn').classList.add('active-animation');
-                    document.querySelector('footer').classList.add('active-fade-in');
-
-                    setTimeout(() => preloader.style.display = 'none', 700);
-                }, 1000);
+                // Apply initial animations
+                document.querySelector('header').classList.add('active-fade-in');
+                document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('active-animation'));
+                document.querySelector('.fixed-action-btn').classList.add('active-animation');
+                document.querySelector('footer').classList.add('active-fade-in');
 
                 // Initialize slider
                 showSlide(0);
                 startSlider();
                 
-                // Initialize scroll buttons
+                // Initialize scroll buttons visibility
                 handleScroll();
 
                 // Set footer year
                 document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+                // Show pop-up banner after all other elements are ready
+                // A small delay can make it feel smoother, but direct call works too
+                showPopup(); 
             };
             
             // Run initialization

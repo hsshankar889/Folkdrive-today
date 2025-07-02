@@ -3,152 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Folkdrive</title>
+    <title>About FolkDrive - Sales & Process Efficiency</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Google Font: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Custom CSS Variables for the new sophisticated theme */
-        :root {
-            --primary-color: #1A2B42; /* Deep Navy Blue */
-            --secondary-color: #007BFF; /* Vibrant Blue (for accents) */
-            --light-bg-color: #FFFFFF; /* Pure White */
-            --dark-bg-color: #121212; /* Near Black */
-            --text-color: #333333; /* Dark Gray for main text */
-            --heading-color: #1A2B42; /* Deep Navy Blue for headings */
-            --hover-bg: #E6F0FF; /* Very light blue for hover background */
-            --hover-text: #1A2B42; /* Deep Navy Blue for hover text */
-        }
+        /* Custom CSS for animations and spinner */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--light-bg-color);
-            min-height: 100vh;
+        }
+
+        /* Custom properties for consistent theming */
+        :root {
+            --primary-color: #3b82f6; /* Blue-500 */
+            --secondary-color: #2563eb; /* Blue-600 */
+            --light-bg-color: #eff6ff; /* Blue-50 */
+            --dark-bg-color: #1e3a8a; /* Blue-900 */
+            --text-color: #1f2937; /* Gray-800 */
+            --heading-color: #111827; /* Gray-900 */
+            --hover-bg: #e0f2fe; /* Blue-100 */
+            --hover-text: #1d4ed8; /* Blue-700 */
+        }
+
+        /* Header container for responsive padding */
+        .header-container {
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem; /* px-4 */
+            padding-right: 1rem; /* px-4 */
+            padding-top: 0.75rem; /* py-3 */
+            padding-bottom: 0.75rem; /* py-3 */
             display: flex;
             flex-direction: column;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            align-items: center;
+            justify-content: space-between;
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .header-container {
+                flex-direction: row;
+            }
         }
 
-        /* Preloader Styles */
-        #preloader {
-            transition: opacity 0.7s ease-out;
+        /* Fixed action buttons styling */
+        .fixed-action-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
-
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: var(--primary-color);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Animations for content reveal */
-        .header-active,
-        .page-title-banner.content-active,
-        .main-content-section.content-active,
-        .fixed-action-btn.fixed-btn-active,
-        footer.footer-active {
+        .fixed-action-btn.fixed-btn-active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        header {
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        .action-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 9999px; /* full rounded */
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .action-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+        .whatsapp-button {
+            background-color: #25D366; /* WhatsApp Green */
+        }
+        .whatsapp-button:hover {
+            background-color: #1DA851;
         }
 
-        .page-title-banner {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .main-content-section {
+        /* Content active animations */
+        .page-title-banner, .main-content-section, .contact-section, .footer-active {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.7s ease-out, transform 0.7s ease-out;
         }
+        .page-title-banner.content-active, .main-content-section.content-active, .contact-section.content-active, .footer-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        .fixed-action-btn {
+        /* Header animation */
+        header {
             opacity: 0;
-            transform: translateX(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-            display: none; /* Hidden by default, shown by JS */
-            flex-direction: column; /* Stack buttons vertically */
-            gap: 10px; /* Space between buttons */
-            right: 20px; /* Position from right */
-            bottom: 20px; /* Position from bottom */
-            z-index: 999;
+            transform: translateY(-20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            background-color: rgba(255, 255, 255, 0.9); /* Header backdrop blur */
         }
-
-        footer {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-
-        /* Action button styling */
-        .action-button {
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 9999px; /* Fully rounded */
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            font-size: 1.25rem;
-        }
-
-        .action-button:hover {
-            transform: scale(1.1);
-            background-color: var(--secondary-color);
-        }
-
-        /* WhatsApp button specific styling */
-        .whatsapp-button {
-            background-color: #25D366; /* WhatsApp green */
-        }
-        .whatsapp-button:hover {
-            background-color: #1DA851; /* Darker green on hover */
+        header.header-active {
+            opacity: 1;
+            transform: translateY(0);
         }
         
-        /* Ensure the body takes full height and allows content to push footer down */
-        html, body {
-            height: 100%;
+        /* Contact Info Item Styling */
+        .contact-info-item {
+            @apply flex items-start space-x-4 p-4 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md hover:scale-[1.01];
+            color: var(--text-color);
         }
-        body {
-            display: flex;
-            flex-direction: column;
+        .contact-info-item i {
+            @apply text-2xl mt-1;
+            color: var(--primary-color);
         }
-        main {
-            flex-grow: 1;
+        .contact-info-item a {
+            @apply text-blue-600 hover:underline;
+        }
+
+        /* Contact Form Styling */
+        .contact-form {
+            @apply bg-white p-8 rounded-xl shadow-lg;
+        }
+        .contact-form label {
+            @apply font-semibold;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            @apply w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[var(--secondary-color)] focus:border-transparent transition-all duration-200 text-[var(--text-color)] placeholder-gray-500;
+        }
+        .contact-form button[type="submit"] {
+            @apply bg-[#25D366] text-white py-3 px-6 rounded-full text-lg font-semibold shadow-md hover:bg-[#1DA851] transition-colors duration-300 flex items-center justify-center space-x-2 w-full;
+        }
+
+        /* Footer Logo Styling */
+        .footer-logo {
+            @apply inline-block mb-4 text-3xl font-extrabold text-white transition-colors duration-300; /* Changed to white for better contrast */
+        }
+        .footer-logo span {
+            color: var(--primary-color); /* Changed to primary color for consistency */
         }
     </style>
 </head>
 <body class="bg-[var(--light-bg-color)] flex flex-col min-h-screen">
-    <!-- Preloader Overlay -->
-    <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-[1000]">
-        <div class="flex flex-col items-center">
-            <!-- FolkDrive placeholder logo -->
-            <img src="./logo-removebg-preview.jpg" alt="FolkDrive Logo" class="h-20 w-auto mb-4 animate-pulse rounded-lg" onerror="this.src='https://placehold.co/80x80/1A2B42/FFFFFF?text=Logo';">
-            <!-- Simple spinner -->
-            <div class="spinner"></div>
-        </div>
-    </div>
-
     <!-- Header Section (consistent with other pages) -->
     <header class="bg-[var(--light-bg-color)] text-[var(--text-color)] shadow-lg fixed top-0 left-0 w-full z-50">
         <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between">
@@ -159,28 +156,28 @@
             </a>
             <!-- Navigation Menu -->
             <nav>
-                <ul class="flex flex-wrap justify-center md:space-x-6 space-x-2 text-sm md:text-base">
+                <ul class="flex flex-wrap justify-center md:space-x-2 text-sm md:text-base">
                     <!-- Navigation Links with icons, hover effects, and active state styling -->
-                    <li><a href="./index.html" class="flex items-center space-x-1 text-[var(--text-color)] hover:bg-[var(--hover-bg)] hover:text-[var(--hover-text)] transition-colors duration-300 p-2 rounded-md"><i class="fas fa-home"></i> <span class="hidden sm:inline">Home</span></a></li>
-                    <li><a href="./services.html" class="flex items-center space-x-1 text-[var(--text-color)] hover:bg-[var(--hover-bg)] hover:text-[var(--hover-text)] transition-colors duration-300 p-2 rounded-md"><i class="fas fa-handshake"></i> <span class="hidden sm:inline">Services</span></a></li>
-                    <li><a href="./methodology.html" class="flex items-center space-x-1 text-[var(--text-color)] hover:bg-[var(--hover-bg)] hover:text-[var(--hover-text)] transition-colors duration-300 p-2 rounded-md"><i class="fas fa-rocket"></i> <span class="hidden sm:inline">Methodology</span></a></li>
-                    <li><a href="./about.html" class="flex items-center space-x-1 bg-[var(--primary-color)] text-white p-2 rounded-md shadow-md active"><i class="fas fa-info-circle"></i> <span class="hidden sm:inline">About Us</span></a></li>
-                    <li><a href="./contact.html" class="flex items-center space-x-1 text-[var(--text-color)] hover:bg-[var(--hover-bg)] hover:text-[var(--hover-text)] transition-colors duration-300 p-2 rounded-md"><i class="fas fa-envelope"></i> <span class="hidden sm:inline">Contact</span></a></li>
+                    <li><a href="./index.html" class="flex items-center space-x-2 text-[var(--text-color)] hover:bg-[var(--hover-bg)] hover:text-[var(--hover-text)] transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="./services.html" class="flex items-center space-x-2 text-[var(--text-color)] hover:bg-[var(--hover-bg)] hover:text-[var(--hover-text)] transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                    <li><a href="./methodology.html" class="flex items-center space-x-2 text-[var(--text-color)] hover:bg-[var(--hover-bg)] hover:text-[var(--hover-text)] transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
+                    <li><a href="./about.html" class="flex items-center space-x-2 bg-[var(--secondary-color)] text-white px-3 py-2 rounded-md font-semibold transition-colors duration-300 hover:bg-[var(--primary-color)]"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                    <li><a href="./contact.html" class="flex items-center space-x-2 text-[var(--text-color)] hover:bg-[var(--hover-bg)] hover:text-[var(--hover-text)] transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="flex-grow py-12 bg-[var(--light-bg-color)] pt-[104px] md:pt-[80px]"> <!-- Adjusted padding for new logo size -->
+    <main class="flex-grow py-12 bg-[var(--light-bg-color)] pt-[104px] md:pt-[92px]"> <!-- Adjusted padding for new logo size -->
         <!-- Page Title Banner Section -->
-        <div class="bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] text-white py-16 text-center shadow-lg mb-10 rounded-b-3xl page-title-banner content-active">
+        <div class="bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] text-white py-16 text-center shadow-lg mb-10 rounded-b-3xl page-title-banner">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl md:text-5xl font-extrabold mb-4 drop-shadow-md">About Folkdrive</h2>
                 <p class="text-xl md:text-2xl opacity-90">Driving innovation and success through expertise and dedication</p>
             </div>
         </div>
 
-        <section class="main-content-section container mx-auto px-4 py-8 md:py-12 bg-[var(--light-bg-color)] rounded-xl shadow-xl content-active">
+        <section class="main-content-section container mx-auto px-4 py-8 md:py-12 bg-white rounded-xl shadow-xl">
             <h2 class="text-[var(--heading-color)] text-3xl md:text-4xl font-extrabold text-center mb-10 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-[var(--secondary-color)] after:rounded-full">Our Mission & Vision</h2>
 
             <div class="mb-10">
@@ -208,51 +205,51 @@
     </main>
 
     <!-- Fixed Action Buttons (Scroll and WhatsApp) -->
-    <div class="fixed-action-btn fixed-btn-active fixed bottom-20 right-4 flex-col gap-3">
-        <button id="scroll-to-top" class="action-button scroll-button" aria-label="Scroll to Top">
+    <div class="fixed-action-btn fixed bottom-20 right-4 flex-col gap-3">
+        <button id="scroll-to-top" class="action-button scroll-button" aria-label="Scroll to Top" style="display: none;">
             <i class="fas fa-arrow-up"></i>
         </button>
         <button id="scroll-to-bottom" class="action-button scroll-button" aria-label="Scroll to Bottom">
             <i class="fas fa-arrow-down"></i>
         </button>
-        <a href="./contact.html" target="_blank" class="action-button whatsapp-button" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/919916245531" target="_blank" class="action-button whatsapp-button" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
     <!-- Footer Section (consistent with other pages) -->
-    <footer class="bg-[var(--dark-bg-color)] text-white py-10 mt-auto footer-active">
+    <footer class="bg-[var(--dark-bg-color)] text-white py-10 mt-auto">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <!-- Footer Left Section - Logo and Description -->
                 <div class="text-center md:text-left">
-                    <a href="index.html" class="text-3xl font-extrabold text-[var(--primary-color)] hover:text-[var(--secondary-color)] transition-colors duration-300"><span class="text-[var(--secondary-color)]">Folkdrive</span></a>
-                    <p class="mt-4 text-sm leading-relaxed text-[var(--light-bg-color)]">Empowering Sales <br>Teams unlocks their full potential, enabling them to drive results and exceed targets.</p>
+                    <a href="index.html" class="footer-logo"><span class="text-[var(--secondary-color)]">Folkdrive</span></a>
+                    <p class="mt-4 text-sm leading-relaxed text-gray-300">Empowering Sales <br>Teams unlocks their full potential, enabling them to drive results and exceed targets.</p>
                 </div>
                 <!-- Footer Middle Section - Company Links -->
                 <div class="text-center md:text-left">
                     <h4 class="font-bold text-xl mb-4 text-white">Company</h4>
                     <ul class="space-y-2">
-                        <li><a href="./about.html" class="flex items-center justify-center md:justify-start space-x-2 text-[var(--secondary-color)] hover:text-white transition-colors duration-300 font-semibold"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                        <li><a href="./about.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300 font-semibold"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
                         <!-- Added Services link to footer -->
-                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-2 text-[var(--secondary-color)] hover:text-white transition-colors duration-300"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
                         <!-- Added Methodology link to footer -->
-                        <li><a href="./methodology.html" class="flex items-center justify-center md:justify-start space-x-2 text-[var(--secondary-color)] hover:text-white transition-colors duration-300"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
+                        <li><a href="./methodology.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
                     </ul>
                 </div>
                 <!-- Footer Right Section - Contact Information -->
                 <div class="text-center md:text-left">
                     <h4 class="font-bold text-xl mb-4 text-white">Contact</h4>
                     <ul class="space-y-2">
-                        <li><a href="mailto:info@folkdrive.com" class="flex items-center justify-center md:justify-start space-x-2 text-[var(--secondary-color)] hover:text-white transition-colors duration-300"><i class="fas fa-envelope"></i> <span>info@folkdrive.com</span></a></li>
-                        <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-2 text-[var(--secondary-color)] hover:text-white transition-colors duration-300"><i class="fas fa-phone"></i> <span>+919916245531</span></a></li>
-                        <li><a href="./contact.html" class="flex items-center justify-center md:justify-start space-x-2 text-[var(--secondary-color)] hover:text-white transition-colors duration-300"><i class="fas fa-address-book"></i> <span>Contact Form</span></a></li>
+                        <li><a href="mailto:info@folkdrive.com" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-envelope"></i> <span>info@folkdrive.com</span></a></li>
+                        <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-phone"></i> <span>9916245531</span></a></li>
+                        <li><a href="./contact.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-white transition-colors duration-300"><i class="fas fa-address-book"></i> <span>Contact Form</span></a></li>
                     </ul>
                 </div>
             </div>
             <!-- Copyright Section -->
             <div class="text-center text-sm border-t border-[var(--primary-color)] pt-6">
-                <p>&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.</p>
+                <p>&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.<br> Powered by <a style="color:white;" href="https://www.folkdrive.in/">Folkdrive India Pvt Ltd</a></p>
             </div>
         </div>
     </footer>
@@ -284,7 +281,6 @@
             }
 
             // Get references to elements for animation
-            const preloader = document.getElementById('preloader');
             const header = document.querySelector('header');
             const pageTitleBanner = document.querySelector('.page-title-banner');
             const mainContentSection = document.querySelector('.main-content-section');
@@ -294,48 +290,93 @@
             // Set initial display of fixed buttons to flex for proper layout before animation
             fixedActionButtons.style.display = 'flex';
 
-            // Delay before preloader starts fading out (e.g., allow logo/spinner to show)
+            let currentDelay = 0; // Cumulative delay
+
+            // Animate header first
             setTimeout(() => {
-                preloader.style.opacity = '0'; // Start preloader fade out
+                header.classList.add('header-active');
+            }, currentDelay);
+            currentDelay += 300; // Delay for next animation after header starts moving
 
-                // After preloader transition finishes, hide it completely and start content animations
+            // Animate page title banner
+            if (pageTitleBanner) {
                 setTimeout(() => {
-                    preloader.style.display = 'none'; // Hide preloader
-                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                    pageTitleBanner.classList.add('content-active');
+                }, currentDelay);
+                currentDelay += 300;
+            }
 
-                    let currentDelay = 0; // Cumulative delay
-
-                    // Animate header first
-                    setTimeout(() => {
-                        header.classList.add('header-active');
-                    }, currentDelay);
-                    currentDelay += 300; // Delay for next animation after header starts moving
-
-                    // Animate page title banner
-                    if (pageTitleBanner) {
-                        setTimeout(() => {
-                            pageTitleBanner.classList.add('content-active');
-                        }, currentDelay);
-                        currentDelay += 300;
-                    }
-
-                    // Animate main content section
-                    if (mainContentSection) {
-                        setTimeout(() => {
-                            mainContentSection.classList.add('content-active');
-                        }, currentDelay);
-                        currentDelay += 300;
-                    }
-
-                    // Animate fixed action buttons and footer
-                    setTimeout(() => {
-                        fixedActionButtons.classList.add('fixed-btn-active');
-                        footer.classList.add('footer-active');
-                    }, currentDelay);
-                    
-                }, 700); // Duration of preloader fade-out transition
-            }, 1000); // Initial delay before preloader starts fading
+            // Animate main content section
+            if (mainContentSection) {
+                setTimeout(() => {
+                    mainContentSection.classList.add('content-active');
+                }, currentDelay);
+                currentDelay += 300;
+            }
+            
+            // Animate fixed action buttons and footer
+            setTimeout(() => {
+                fixedActionButtons.classList.add('fixed-btn-active');
+                footer.classList.add('footer-active');
+            }, currentDelay);
+            
+            // Initial check for scroll buttons visibility
+            handleScroll();
         };
+
+        // JavaScript for Contact Form WhatsApp Integration (not directly used on About page, but kept for consistency if copied)
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contactForm'); // This element might not exist on the About page
+            if (contactForm) {
+                contactForm.addEventListener('submit', (event) => {
+                    event.preventDefault(); // Prevent default form submission
+
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+
+                    // Construct the WhatsApp message
+                    const whatsappMessage = `Hello Folkdrive Team,\n` +
+                                            `Name: ${name} \n`+
+                                            `Email: ${email} \n`+
+                                            `Subject: ${subject}\n` +
+                                            `Message: ${message}\n`;
+
+                    // WhatsApp API URL for sending messages
+                    const whatsappURL = `https://wa.me/919916245531?text=${encodeURIComponent(whatsappMessage)}`;
+
+                    // Open WhatsApp in a new tab
+                    window.open(whatsappURL, '_blank');
+                });
+            }
+        });
+
+        // Function to handle scroll button visibility (defined outside window.onload for global access)
+        function handleScroll() {
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+            const scrollToBottomButton = document.getElementById('scroll-to-bottom');
+            const scrollY = window.scrollY;
+            const pageHeight = document.body.offsetHeight;
+            const viewportHeight = window.innerHeight;
+
+            if (scrollToTopButton) {
+                if (scrollY > 300) {
+                    scrollToTopButton.style.display = 'flex';
+                } else {
+                    scrollToTopButton.style.display = 'none';
+                }
+            }
+
+            if (scrollToBottomButton) {
+                if (pageHeight - (scrollY + viewportHeight) > 300) {
+                    scrollToBottomButton.style.display = 'flex';
+                } else {
+                    scrollToBottomButton.style.display = 'none';
+                }
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
     </script>
 </body>
 </html>
