@@ -8,12 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         /* Custom CSS for animations */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif; /* Changed font to Roboto */
         }
 
         /* Custom slide image styling for smooth transitions */
@@ -137,7 +139,6 @@
 
         #popup-banner .popup-content {
             background-color: white;
-            padding: 2rem;
             border-radius: 1.5rem; /* rounded-2xl */
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
             max-width: 30rem; /* max-w-lg */
@@ -148,6 +149,7 @@
             transform: scale(0.95);
             opacity: 0;
             transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            overflow: hidden; /* Ensures rounded corners on inner elements */
         }
 
         #popup-banner.show-popup .popup-content {
@@ -167,20 +169,106 @@
             cursor: pointer;
             line-height: 1;
             transition: color 0.3s ease;
+            z-index: 10; /* Ensure it's above other content */
         }
 
         #close-popup:hover {
             color: #1f2937; /* gray-800 */
         }
 
-        /* Blinking animation for the Enroll button */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        /* Define continuous pop-up animation for the button */
+        @keyframes continuous-pop-up {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); } /* Slightly larger at midpoint */
+            100% { transform: scale(1); }
         }
 
-        .blink-button {
-            animation: blink 1.5s infinite;
+        /* Style for the image button */
+        .enroll-image-button {
+            display: inline-block; /* Make it behave like a button */
+            width: 160px; /* Set a fixed width for the button */
+            height: 53px; /* Set a fixed height to maintain aspect ratio, adjust as needed */
+            background-image: url('https://static.vecteezy.com/system/resources/previews/008/559/364/non_2x/enroll-now-button-enroll-now-text-web-template-sign-icon-banner-vector.jpg');
+            background-size: cover; /* Make the image cover the entire button area */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            border-radius: 9999px; /* Full rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Initial shadow */
+            border: 2px solid rgba(59, 130, 246, 0.5); /* Light blue border when pop-up is active */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Add border-color to transition */
+            text-indent: -9999px; /* Hide any potential link text */
+            overflow: hidden; /* Ensures content outside border-radius is hidden */
+            cursor: pointer; /* Indicate it's clickable */
+            /* Apply continuous pop-up animation */
+            animation: continuous-pop-up 2s infinite ease-in-out; /* 2 seconds duration, infinite loop, smooth ease-in-out */
+        }
+
+        .enroll-image-button:hover {
+            transform: scale(1.1); /* Slightly larger scale on hover, overriding animation for direct interaction */
+            box-shadow: 0 6px 16px rgba(255, 0, 0, 0.5); /* Red box-shadow on hover */
+            border-color: rgba(255, 0, 0, 0.8); /* Red border on hover */
+            animation: none; /* Stop continuous animation on hover */
+        }
+
+        /* Gradient text for the pop-up message */
+        .gradient-text {
+            background: linear-gradient(to right, #059669, #10b981, #34d399); /* Green gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent; /* Fallback for browsers that don't support background-clip */
+            font-weight: 600; /* Semibold for emphasis */
+        }
+
+        /* New styles for improved pop-up design */
+        .popup-header {
+            background: linear-gradient(to right, #3b82f6, #60a5fa); /* Blue gradient header */
+            padding: 1.5rem 2rem;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+            color: white;
+            margin-bottom: 1.5rem; /* Space between header and content */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .popup-header .fas {
+            font-size: 2.5rem; /* Larger icon in header */
+        }
+
+        .popup-header h3 {
+            font-size: 2.25rem; /* Larger heading in header */
+            font-weight: 800; /* Extra bold */
+            line-height: 1.2;
+            margin-bottom: 0; /* Remove default margin */
+        }
+
+        .popup-body {
+            padding: 0 2rem 2rem; /* Padding for the main content area */
+        }
+
+        .popup-body ul {
+            padding-left: 0; /* Remove default padding from list */
+        }
+
+        .popup-body ul li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem; /* Space between list items */
+            font-size: 1.125rem; /* text-lg */
+            text-align: left;
+        }
+
+        .popup-body ul li .fas {
+            color: #3b82f6; /* Blue checkmark */
+            font-size: 1.25rem; /* Larger checkmark icon */
+        }
+
+        .popup-body p {
+            margin-top: 1.5rem; /* Space above the gradient text */
         }
     </style>
 </head>
@@ -219,7 +307,7 @@
             <div class="relative w-full min-h-[50vh] md:min-h-[70vh] overflow-hidden rounded-xl shadow-xl">
                 <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sales Acceleration" class="slide-image active" onerror="this.src='https://placehold.co/1200x600/3B82F6/FFFFFF?text=Sales+Acceleration';">
                 <img src="https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Growth Achievement" class="slide-image" onerror="this.src='https://placehold.co/1200x600/6366F1/FFFFFF?text=Growth+Achievement';">
-                <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide-image" onerror="this.src='https://placehold.co/1200x600/3B82F6/FFFFFF?text=Sales+Training';">
+                <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide-image" alt="Sales Training" onerror="this.src='https://placehold.co/1200x600/3B82F6/FFFFFF?text=Sales+Training';">
                 <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide-image" alt="Process Efficiency" onerror="this.src='https://placehold.co/1200x600/6366F1/FFFFFF?text=Process+Efficiency';">
 
                 <div class="slider-nav absolute inset-y-0 w-full flex justify-between items-center px-4 z-10">
@@ -309,7 +397,7 @@
                     <h4 class="font-bold text-lg mb-4 text-white tracking-wider">Company</h4>
                     <ul class="space-y-2">
                         <li><a href="./about.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-info-circle w-4"></i> <span>About Us</span></a></li>
-                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-handshake w-4"></i> <span>Services</span></a></li>
+                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
                         <li><a href="./methodology.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-rocket w-4"></i> <span>Methodology</span></a></li>
                     </ul>
                 </div>
@@ -331,23 +419,28 @@
 
     <!-- Pop-up Banner HTML -->
     <div id="popup-banner" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[1000] p-4">
-        <div class="popup-content bg-white p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center relative">
+        <div class="popup-content bg-white rounded-2xl shadow-2xl max-w-lg w-full relative">
             <button id="close-popup" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold leading-none">&times;</button>
-            <div class="flex flex-col items-center justify-center mb-6">
-                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl mb-4">
-                    <i class="fas fa-bullhorn"></i>
-                </div>
-                <h3 class="text-3xl font-extrabold text-gray-900 mb-3">Enroll Now & Unlock Your Sales Potential!</h3>
-                <ul class="text-gray-700 leading-relaxed list-disc list-inside text-left mb-6 space-y-2">
-                    <li>Boost your sales skills</li>
-                    <li>Enhance your confidence</li>
-                    <li>Drive results and exceed targets</li>
-                </ul>
-                <p class="text-gray-700 leading-relaxed mb-6">Don't miss out! Sign up today and take your sales career to the next level!</p>
+            
+            <!-- Pop-up Header -->
+            <div class="popup-header">
+                <i class="fas fa-bullhorn"></i>
+                <h3>Enroll Now & Unlock Your Sales Potential!</h3>
             </div>
-            <a href="./enroll.html" class="inline-block bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-md blink-button">
-                Enroll now!!!!
-            </a>
+
+            <!-- Pop-up Body -->
+            <div class="popup-body flex flex-col items-center justify-center">
+                <ul class="text-gray-700 leading-relaxed list-none list-inside mb-6 space-y-2 max-w-xs mx-auto">
+                    <li><i class="fas fa-check-circle"></i> Boost your sales skills</li>
+                    <li><i class="fas fa-check-circle"></i> Enhance your confidence</li>
+                    <li><i class="fas fa-check-circle"></i> Drive results and exceed targets</li>
+                </ul>
+                <!-- Text with gradient color -->
+                <p class="gradient-text leading-relaxed mb-6">Don't miss out! Sign up today and take your sales career to the next level!</p>
+            </div>
+            
+            <!-- Modified Enroll button to use the image as background and apply continuous pop-up animation -->
+            <a href="./enroll.html" class="enroll-image-button mb-8" aria-label="Enroll now!"></a>
         </div>
     </div>
 

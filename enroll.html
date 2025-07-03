@@ -9,25 +9,199 @@
     <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Custom CSS for animations */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        /* Custom CSS for a clean white and blue theme */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap');
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif; /* Changed to Roboto */
+            background-color: #f8faff; /* Very light blue background */
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        /* Fixed action buttons */
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif; /* Retained Montserrat for headings */
+            color: #1e3a8a; /* Darker blue heading color */
+        }
+
+        /* Header Styling */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        header .nav-link {
+            position: relative;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            color: #4a5568; /* Gray-700 */
+        }
+
+        header .nav-link:hover {
+            color: #2563eb; /* Blue-700 */
+            background-color: #eff6ff; /* Blue-50 */
+        }
+
+        header .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: #2563eb; /* Blue-700 */
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        header .nav-link:hover::after {
+            width: 80%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); /* Blue gradient */
+            color: white;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section::before, .hero-section::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .hero-section::before {
+            top: -30px;
+            left: -30px;
+            width: 150px;
+            height: 150px;
+            animation: float1 8s infinite ease-in-out;
+        }
+
+        .hero-section::after {
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            animation: float2 10s infinite ease-in-out;
+        }
+
+        @keyframes float1 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(15px, 20px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes float2 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, -15px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .hero-section .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-button {
+            background-color: #f59e0b; /* Amber-500 */
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 2px solid transparent; /* For focus ring */
+        }
+
+        .hero-button:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            background-color: #d97706; /* Amber-600 */
+        }
+        .hero-button:focus {
+            outline: none;
+            border-color: #fcd34d; /* Amber-200 */
+            box-shadow: 0 0 0 4px rgba(252, 211, 77, 0.5);
+        }
+
+        /* Main Content Section */
+        .main-content-section {
+            background-color: #ffffff;
+            padding: 80px 0;
+            margin-top: -60px; /* Overlap with hero */
+            position: relative;
+            z-index: 10;
+            border-radius: 2rem 2rem 0 0;
+            box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .main-content-section .section-title {
+            color: #1e3a8a; /* Darker blue */
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .main-content-section .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #2563eb; /* Blue-700 */
+            border-radius: 2px;
+        }
+
+        .skill-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+
+        .skill-list li::before {
+            content: "\f00c"; /* Font Awesome check icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #10b981; /* Emerald-500 */
+            font-size: 1.1rem;
+            top: 0.1rem;
+        }
+
+        /* Custom blue glow shadow */
+        .blue-glow-shadow {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 4px 12px rgba(0, 0, 0, 0.1); /* Blue glow + subtle regular shadow */
+        }
+
+        /* Fixed Action Buttons */
         .fixed-action-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            right: 30px;
             z-index: 900;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
         .fixed-action-btn.active-animation {
@@ -36,25 +210,24 @@
         }
 
         .action-button {
-            background-color: #3b82f6; /* Blue-500 */
+            background-color: #2563eb; /* Blue-700 */
             color: white;
-            border: none;
-            border-radius: 9999px; /* full rounded */
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            width: 60px; /* Increased size */
+            height: 60px; /* Increased size */
+            font-size: 1.8rem; /* Increased icon size */
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+            border-radius: 9999px;
+            display: flex; /* Ensure flex for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            line-height: 1; /* Normalize line height for perfect centering */
+            transition: all 0.3s ease;
         }
 
         .action-button:hover {
-            background-color: #2563eb; /* Blue-600 */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+            background-color: #1e40af; /* Blue-800 */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35); /* Stronger hover shadow */
         }
 
         .whatsapp-button {
@@ -65,204 +238,273 @@
             background-color: #1da851;
         }
 
-        /* Fade-in animations */
-        .fade-in {
-            opacity: 0;
-            transition: opacity 0.7s ease-out;
+        /* Footer Styling */
+        footer {
+            background-color: #1e3a8a; /* Dark blue */
+            color: #e0e7ff; /* Light blue */
+            padding-top: 60px;
+            padding-bottom: 40px;
         }
 
-        .fade-in.active-fade-in {
-            opacity: 1;
+        footer h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
         }
 
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        footer a {
+            color: #93c5fd; /* Light blue for links */
+            transition: color 0.3s ease;
         }
 
-        .fade-in-up.active-animation {
-            opacity: 1;
-            transform: translateY(0);
+        footer a:hover {
+            color: #dbeafe; /* Lighter blue on hover */
         }
 
-        /* Header backdrop blur */
-        header {
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque white */
+        footer .brand-logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
         }
 
-        /* Hero Header Section Styles */
-        .hero-header-section {
-            position: relative;
-            padding-top: 124px; /* Adjusted for gap */
-            padding-bottom: 80px;
-            overflow: hidden; /* Ensure background doesn't overflow */
+        footer .brand-logo span {
+            color: #f59e0b; /* Amber accent */
         }
 
-        .hero-header-section .background-image {
-            position: absolute;
-            inset: 0;
-            background-image: url('https://images.unsplash.com/photo-1557804506-669a67965da0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            background-size: cover;
-            background-position: center;
-            z-index: -2; /* Behind overlay and content */
-        }
-
-        .hero-header-section .overlay {
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for text readability */
-            z-index: -1; /* Between background and content */
-        }
-
-        .hero-header-section .content-wrapper {
-            position: relative;
-            z-index: 1; /* Above overlay */
-            color: white; /* Text color for contrast */
-        }
-
-        @media (min-width: 768px) { /* md breakpoint */
-            .hero-header-section {
-                padding-top: 112px; /* Adjusted for gap on desktop */
-                padding-bottom: 120px;
-            }
-        }
-
-        /* Enrollment Form Modal Styles */
-        #enrollment-form-modal {
-            display: none; /* Hidden by default */
-            opacity: 0;
-            transition: opacity 0.5s ease-out;
+        /* --- Modal Styling (General) --- */
+        .modal-overlay {
             position: fixed;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
             padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.4s ease-out;
+            pointer-events: none; /* Allows clicks through when hidden */
         }
 
-        #enrollment-form-modal.show-modal {
-            display: flex; /* Show flex when active */
+        .modal-overlay.show-modal {
             opacity: 1;
+            pointer-events: auto; /* Enables clicks when visible */
         }
 
-        #enrollment-form-modal .modal-content {
-            background-color: white;
-            padding: 2rem;
+        .modal-content {
+            background-color: #ffffff;
+            padding: 2.5rem;
             border-radius: 1.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            max-width: 30rem; /* max-w-lg from original form */
-            width: 100%;
-            text-align: center;
-            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            max-width: 30rem;
+            border: 1px solid #e2e8f0;
             transform: scale(0.95);
             opacity: 0;
-            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+            position: relative; /* For close button positioning */
         }
 
-        #enrollment-form-modal.show-modal .modal-content {
+        .modal-overlay.show-modal .modal-content {
             transform: scale(1);
             opacity: 1;
         }
 
-        #close-enrollment-modal {
+        .modal-close-button {
             position: absolute;
             top: 1rem;
             right: 1rem;
             background: none;
             border: none;
             font-size: 2rem;
-            color: #6b7280;
+            color: #6b7280; /* Gray-500 */
             cursor: pointer;
-            line-height: 1;
-            transition: color 0.3s ease;
+            transition: color 0.2s ease;
         }
 
-        #close-enrollment-modal:hover {
-            color: #1f2937;
+        .modal-close-button:hover {
+            color: #1f2937; /* Gray-900 */
         }
 
-        /* Blinking animation for the Enroll button */
+        /* --- Specific Modal: Limited Seats Pop-up --- */
+        #limited-seats-modal .modal-content {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); /* Light red gradient */
+            border: 1px solid #ef4444; /* Red-500 */
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.25); /* Red glow shadow */
+            text-align: center;
+            padding: 2rem;
+        }
+
+        #limited-seats-modal .modal-content h3 {
+            color: #dc2626; /* Red-600 */
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        #limited-seats-modal .modal-content p {
+            color: #b91c1c; /* Red-700 */
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        #limited-seats-modal .close-pop-up-button {
+            background-color: #ef4444; /* Red-500 */
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        #limited-seats-modal .close-pop-up-button:hover {
+            background-color: #dc2626; /* Red-600 */
+            transform: translateY(-2px);
+        }
+
+        /* --- Specific Modal: Enrollment Form --- */
+        #enrollment-form-modal .modal-inner-box {
+            background-color: #f0f8ff; /* Alice blue */
+            padding: 2.5rem;
+            border-radius: 1.25rem;
+            border: 1px solid #d0e0f0;
+            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-label {
+            color: #1e3a8a; /* Dark blue for labels */
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            font-size: 1rem; /* Slightly larger font */
+            display: block; /* Ensure it takes full width */
+        }
+
+        .form-input {
+            padding: 0.8rem 1rem; /* Adjusted padding */
+            border-radius: 0.5rem; /* Slightly less rounded */
+            border: 1px solid #93c5fd; /* Light blue border */
+            background-color: #ffffff; /* White background */
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06); /* Subtle inner shadow */
+            transition: all 0.2s ease-in-out;
+            width: 100%; /* Ensure full width */
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2563eb; /* Blue-700 */
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3), inset 0 1px 2px rgba(0,0,0,0.06); /* Blue glow + inner shadow */
+        }
+
+        .modal-submit-button {
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%); /* Green gradient */
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .modal-submit-button:hover {
+            background: linear-gradient(90deg, #059669 0%, #047857 100%); /* Darker green on hover */
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Animations */
+        .fade-in { opacity: 0; transition: opacity 0.8s ease-out; }
+        .fade-in.active-fade-in { opacity: 1; }
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-up.active-animation { opacity: 1; transform: translateY(0); }
+        
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
-
-        .blink-button {
-            animation: blink 1.5s infinite;
-        }
+        .blink-button { animation: blink 1.5s infinite; }
     </style>
 </head>
-<body class="bg-blue-50 text-gray-800 flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-white/90 backdrop-blur-md text-gray-800 shadow-sm fixed top-0 left-0 w-full z-50 fade-in">
-        <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between">
+    <header class="fixed top-0 left-0 w-full z-50 py-4 px-6 fade-in">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
             <a href="index.html" class="mb-4 md:mb-0">
-                <!-- Placeholder for logo. Replace with your actual logo path. -->
-                <img src="./logo-removebg-preview.jpg" alt="FolkDrive Logo" class="rounded-lg h-14 w-auto">
+                <img src="https://placehold.co/160x50/2563EB/FFFFFF?text=FolkDrive" alt="FolkDrive Logo" class="rounded-lg h-12 w-auto transition-transform duration-300 hover:scale-105">
             </a>
             <nav>
-                <ul class="flex flex-wrap justify-center md:space-x-2 text-sm md:text-base">
-                    <li><a href="./index.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-home"></i> <span>Home</span></a></li>
-                    <li><a href="./services.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
-                    <li><a href="./methodology.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
-                    <li><a href="./about.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
-                    <li><a href="./contact.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
-                    <!-- New Enroll Now button in header -->
-                    <li><a href="./enroll.html" class="flex items-center space-x-2 bg-purple-600 text-white px-3 py-2 rounded-md font-semibold transition-colors duration-300 hover:bg-purple-700"><i class="fas fa-user-plus"></i> <span>Enroll Now</span></a></li>
+                <ul class="flex flex-wrap justify-center md:space-x-6 text-base md:text-lg font-medium">
+                    <li><a href="./index.html" class="nav-link flex items-center space-x-2"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="./services.html" class="nav-link flex items-center space-x-2"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                    <li><a href="./methodology.html" class="nav-link flex items-center space-x-2"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
+                    <li><a href="./about.html" class="nav-link flex items-center space-x-2"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                    <li><a href="./contact.html" class="nav-link flex items-center space-x-2"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Header Section -->
-    <section class="hero-header-section text-center fade-in-up">
-        <div class="background-image"></div>
-        <div class="overlay"></div>
-        <div class="content-wrapper container mx-auto px-4">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Unlock Your Sales Potential!</h1>
-            <p class="text-xl md:text-2xl font-semibold mb-8">Join our 2-Day Sales Certification Program:</p>
+    <!-- Hero Section -->
+    <section class="hero-section fade-in-up">
+        <div class="content-wrapper container mx-auto px-4 py-16">
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 drop-shadow-lg leading-tight text-white">
+                Accelerate Your Sales <br class="md:hidden"> Journey!
+            </h1>
+            <p class="text-lg md:text-xl lg:text-2xl font-light mb-12 max-w-3xl mx-auto opacity-90">
+                Join our transformative 2-Day Sales Certification Program and unlock new levels of success.
+            </p>
             
-            <ul class="list-none space-y-3 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-                <li class="flex items-center justify-center space-x-3">
-                    <i class="fas fa-check-circle text-blue-300 text-2xl"></i>
-                    <span>4 hours/session, 2 days</span>
-                </li>
-                <li class="flex items-center justify-center space-x-3">
-                    <i class="fas fa-award text-blue-300 text-2xl"></i>
-                    <span>Certification upon completion</span>
-                </li>
-                <li class="flex items-center justify-center space-x-3">
-                    <i class="fas fa-rupee-sign text-blue-300 text-2xl"></i>
-                    <span>All this for just ₹999!</span>
-                </li>
-            </ul>
-            <!-- New Enroll Now button in hero section with blinking animation -->
-            <button id="open-enrollment-modal-btn" class="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg mt-8 blink-button">
-                Enroll Now!
+            <button id="open-enrollment-modal-btn" class="hero-button blink-button transform hover:scale-105">
+                Enroll Now & Secure Your Spot!
             </button>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="flex-grow">
-        <div class="container mx-auto px-4 py-12 md:py-16">
-            <div class="text-center fade-in-up bg-white p-8 rounded-2xl shadow-lg">
-                <p class="text-lg md:text-xl text-red-600 font-semibold mb-8">Don't miss out! Enroll now and boost your sales skills!</p>
+        <div class="container mx-auto px-4 py-16 main-content-section">
+            <div class="text-center fade-in-up bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-gray-100">
+                <!-- Moved "Limited Seats Available" text to its own pop-up -->
 
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-blue-600 after:rounded-full">
-                    After completing our 2-Day Sales Certification Program, you'll know:
+                <h2 class="text-3xl md:text-4xl font-bold section-title mb-8">
+                    What You'll Master:
                 </h2>
-                <ol class="list-decimal list-inside text-left text-lg md:text-xl text-gray-700 space-y-2 mb-12 max-w-2xl mx-auto">
-                    <li>How to create need for your product</li>
-                    <li>Understand customer needs effectively</li>
-                    <li>Position your product strategically</li>
-                    <li>Minimize negotiations and close deals smoothly</li>
-                    <li>Create win-win strategies</li>
-                    <li>Identify and handle objections confidently</li>
-                </ol>
-                <!-- The enrollment form is now in a modal, so it's removed from here -->
+                <ul class="list-none text-left skill-list space-y-4 mb-12 max-w-3xl mx-auto">
+                    <li><span class="font-bold text-blue-800">Demand Creation:</span> Learn to effectively generate and communicate the need for your product or service.</li>
+                    <li><span class="font-bold text-blue-800">Customer Insight:</span> Develop deep understanding of customer needs through advanced listening.</li>
+                    <li><span class="font-bold text-blue-800">Strategic Positioning:</span> Master the art of positioning your offerings as the ideal solution.</li>
+                    <li><span class="font-bold text-blue-800">Negotiation Mastery:</span> Minimize friction and close deals smoothly with proven tactics.</li>
+                    <li><span class="font-bold text-blue-800">Win-Win Strategies:</span> Craft approaches that benefit both clients and your business for lasting success.</li>
+                    <li><span class="font-bold text-blue-800">Objection Handling:</span> Confidently identify, address, and overcome sales objections.</li>
+                </ul>
+            </div>
+
+            <!-- Feature cards moved here, after the main content box -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto text-center fade-in-up">
+                <div class="bg-white text-blue-800 p-6 rounded-xl blue-glow-shadow border border-blue-100 transform hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-hourglass-half text-4xl text-yellow-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Compact & Potent</h3>
+                    <p class="text-base font-bold text-amber-700 opacity-90">4 hours/session, over 2 focused days</p>
+                </div>
+                <div class="bg-white text-blue-800 p-6 rounded-xl blue-glow-shadow border border-blue-100 transform hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-certificate text-4xl text-yellow-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Industry Certified</h3>
+                    <p class="text-base font-bold text-amber-700 opacity-90">Receive a professional certification upon completion</p>
+                </div>
+                <div class="bg-white text-blue-800 p-6 rounded-xl blue-glow-shadow border border-blue-100 transform hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-tags text-4xl text-yellow-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Exceptional Value</h3>
+                    <p class="text-base font-bold text-amber-700 opacity-90">All this for an incredible ₹999!</p>
+                </div>
+            </div>
+
+            <!-- New Enroll Now button after the feature cards -->
+            <div class="text-center mt-16 fade-in-up">
+                <button id="open-enrollment-modal-btn-bottom" class="hero-button blink-button transform hover:scale-105">
+                    Enroll Now & Secure Your Spot!
+                </button>
             </div>
         </div>
     </main>
@@ -275,67 +517,77 @@
         <button id="scroll-to-bottom" class="action-button scroll-button" aria-label="Scroll to Bottom">
             <i class="fas fa-arrow-down"></i>
         </button>
-        <a href="./contact.html" target="_blank" class="action-button whatsapp-button" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/919916245531?text=Hello%20FolkDrive%20team,%20I'm%20interested%20in%20your%202-Day%20Sales%20Certification%20Program." target="_blank" class="action-button whatsapp-button" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp text-2xl"></i>
         </a>
     </div>
 
     <!-- Footer -->
     <footer class="bg-blue-900 text-white py-12 mt-auto fade-in">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10 text-center md:text-left">
                 <!-- Footer Column 1: Brand -->
                 <div>
-                    <a href="index.html" class="inline-block mb-4 text-3xl font-extrabold text-white transition-colors duration-300">Folk<span class="text-blue-500">drive</span></a>
-                    <p class="mt-2 text-sm leading-relaxed text-gray-300">Empowering Sales Teams to unlock their full potential, enabling them to drive results and exceed targets.</p>
+                    <a href="index.html" class="inline-block mb-4 brand-logo transition-colors duration-300 hover:text-gray-300">Folk<span class="text-amber-400">drive</span></a>
+                    <p class="mt-2 text-sm leading-relaxed text-blue-200">Empowering sales professionals with cutting-edge strategies and skills to achieve unparalleled success.</p>
                 </div>
                 <!-- Footer Column 2: Quick Links -->
                 <div>
-                    <h4 class="font-bold text-lg mb-4 text-white tracking-wider">Company</h4>
-                    <ul class="space-y-2">
-                        <li><a href="./about.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-info-circle w-4"></i> <span>About Us</span></a></li>
-                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
-                        <li><a href="./methodology.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-rocket w-4"></i> <span>Methodology</span></a></li>
+                    <h4 class="font-bold section-title mb-5">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="./about.html" class="flex items-center justify-center md:justify-start space-x-3 text-blue-200 hover:text-blue-50 transition-colors duration-300"><i class="fas fa-info-circle w-5"></i> <span>About Us</span></a></li>
+                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-3 text-blue-200 hover:text-blue-50 transition-colors duration-300"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                        <li><a href="./methodology.html" class="flex items-center justify-center md:justify-start space-x-3 text-blue-200 hover:text-blue-50 transition-colors duration-300"><i class="fas fa-rocket w-5"></i> <span>Methodology</span></a></li>
                     </ul>
                 </div>
                 <!-- Footer Column 3: Contact -->
                 <div>
-                    <h4 class="font-bold text-lg mb-4 text-white tracking-wider">Contact</h4>
-                    <ul class="space-y-2">
-                        <li><a href="mailto:info@folkdrive.com" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-envelope w-4"></i> <span>info@folkdrive.com</span></a></li>
-                        <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-phone w-4"></i> <span>9916245531</span></a></li>
-                        <li><a href="./contact.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-address-book w-4"></i> <span>Contact Form</span></a></li>
+                    <h4 class="font-bold section-title mb-5">Contact</h4>
+                    <ul class="space-y-3">
+                        <li><a href="mailto:info@folkdrive.com" class="flex items-center justify-center md:justify-start space-x-3 text-blue-200 hover:text-blue-50 transition-colors duration-300"><i class="fas fa-envelope w-5"></i> <span>info@folkdrive.com</span></a></li>
+                        <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-3 text-blue-200 hover:text-blue-50 transition-colors duration-300"><i class="fas fa-phone w-5"></i> <span>+91 9916245531</span></a></li>
+                        <li><a href="./contact.html" class="flex items-center justify-center md:justify-start space-x-3 text-blue-200 hover:text-blue-50 transition-colors duration-300"><i class="fas fa-address-book w-5"></i> <span>Contact Form</span></a></li>
                     </ul>
                 </div>
             </div>
             <div class="text-center text-sm border-t border-blue-800 pt-8">
-                <p class="text-gray-400">&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.<br> Powered by <a style="color:white;" href="https://www.folkdrive.in/">Folkdrive India Pvt Ltd</a></p>
+                <p class="text-blue-400">&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.<br> Powered by <a class="text-amber-400 hover:underline" href="https://www.folkdrive.in/">Folkdrive India Pvt Ltd</a></p>
             </div>
         </div>
     </footer>
 
+    <!-- Limited Seats Pop-up Modal -->
+    <div id="limited-seats-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-limited-seats-modal" class="modal-close-button">&times;</button>
+            <h3 class="font-bold mb-4">Important Notice!</h3>
+            <p class="font-semibold mb-6">Limited Seats Available – Act Fast to Boost Your Sales Skills!</p>
+            <button id="dismiss-limited-seats-pop-up" class="close-pop-up-button">Got It!</button>
+        </div>
+    </div>
+
     <!-- Enrollment Form Modal HTML -->
-    <div id="enrollment-form-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[1000] p-4 hidden">
-        <div class="modal-content bg-white p-8 rounded-2xl shadow-2xl max-w-lg w-full relative">
-            <button id="close-enrollment-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold leading-none">&times;</button>
-            <div class="bg-blue-50 p-8 rounded-xl shadow-inner w-full border border-blue-200">
-                <h3 class="text-2xl font-bold text-gray-900 mb-6">Enrollment Form</h3>
+    <div id="enrollment-form-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-enrollment-modal" class="modal-close-button">&times;</button>
+            <div class="modal-inner-box">
+                <h3 class="text-3xl font-bold text-gray-900 mb-8">Enrollment Form</h3>
                 <form id="enrollmentForm" class="space-y-6">
                     <div>
-                        <label for="name" class="block text-left text-gray-700 text-sm font-medium mb-2">Full Name</label>
-                        <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" placeholder="Your Full Name" required>
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="Your Full Name" required>
                     </div>
                     <div>
-                        <label for="contactNumber" class="block text-left text-gray-700 text-sm font-medium mb-2">Contact Number</label>
-                        <input type="tel" id="contactNumber" name="contactNumber" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" placeholder="e.g., +919876543210" required>
+                        <label for="contactNumber" class="form-label">Contact Number</label>
+                        <input type="tel" id="contactNumber" name="contactNumber" class="form-input" placeholder="e.g., +919876543210" required>
                     </div>
                     <div>
-                        <label for="email" class="block text-left text-gray-700 text-sm font-medium mb-2">Email Address</label>
-                        <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" placeholder="you@example.com" required>
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required>
                     </div>
-                    <button type="submit" class="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition-colors duration-300 shadow-lg flex items-center justify-center space-x-2">
-                        <i class="fab fa-whatsapp text-xl"></i>
-                        <span>Send via WhatsApp</span>
+                    <button type="submit" class="w-full modal-submit-button transform hover:scale-105">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                        <span>Send Enrollment via WhatsApp</span>
                     </button>
                 </form>
             </div>
@@ -349,10 +601,16 @@
             const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
             const enrollmentForm = document.getElementById('enrollmentForm'); // Form inside the modal
             
-            // New elements for the enrollment form modal
+            // Enrollment Form Modal elements
             const openEnrollmentModalBtn = document.getElementById('open-enrollment-modal-btn');
+            const openEnrollmentModalBtnBottom = document.getElementById('open-enrollment-modal-btn-bottom'); // New button
             const enrollmentFormModal = document.getElementById('enrollment-form-modal');
             const closeEnrollmentModalBtn = document.getElementById('close-enrollment-modal');
+
+            // Limited Seats Pop-up Modal elements
+            const limitedSeatsModal = document.getElementById('limited-seats-modal');
+            const closeLimitedSeatsModalBtn = document.getElementById('close-limited-seats-modal');
+            const dismissLimitedSeatsPopUpBtn = document.getElementById('dismiss-limited-seats-pop-up');
             
             // --- Scroll Button Logic ---
             const handleScroll = () => {
@@ -368,10 +626,11 @@
                 }
 
                 // Show/hide "scroll to bottom"
-                if (pageHeight - (scrollY + viewportHeight) > 300) {
-                    scrollToBottomBtn.style.display = 'flex';
-                } else {
+                // Check if user is near the bottom of the page
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) { // 100px buffer
                     scrollToBottomBtn.style.display = 'none';
+                } else {
+                    scrollToBottomBtn.style.display = 'flex';
                 }
             };
             
@@ -379,29 +638,50 @@
             scrollToBottomBtn.addEventListener('click', () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
             window.addEventListener('scroll', handleScroll);
 
+            // --- Modal Logic Helper Function ---
+            const showModal = (modalElement) => {
+                // Ensure display is set before opacity for transition to work
+                modalElement.style.display = 'flex';
+                // Use a small timeout to allow reflow before applying opacity
+                setTimeout(() => {
+                    modalElement.classList.add('show-modal');
+                }, 10); // Small delay
+            };
+
+            const hideModal = (modalElement) => {
+                modalElement.classList.remove('show-modal');
+                // Hide display after transition completes
+                modalElement.addEventListener('transitionend', function handler() {
+                    if (!modalElement.classList.contains('show-modal')) {
+                        modalElement.style.display = 'none';
+                        modalElement.removeEventListener('transitionend', handler);
+                    }
+                });
+            };
+
             // --- Enrollment Form Modal Logic ---
-            // Function to show the enrollment form modal
-            const showEnrollmentModal = () => {
-                enrollmentFormModal.classList.add('show-modal');
-            };
+            openEnrollmentModalBtn.addEventListener('click', () => showModal(enrollmentFormModal));
+            openEnrollmentModalBtnBottom.addEventListener('click', () => showModal(enrollmentFormModal));
+            closeEnrollmentModalBtn.addEventListener('click', () => hideModal(enrollmentFormModal));
 
-            // Function to hide the enrollment form modal
-            const hideEnrollmentModal = () => {
-                enrollmentFormModal.classList.remove('show-modal');
-                // Optionally clear form fields when closed
-                enrollmentForm.reset();
-            };
-
-            // Event listener to open the modal from the hero section button
-            openEnrollmentModalBtn.addEventListener('click', showEnrollmentModal);
-
-            // Event listener to close the modal from the close button
-            closeEnrollmentModalBtn.addEventListener('click', hideEnrollmentModal);
-
-            // Event listener to close the modal if clicking outside the content
             enrollmentFormModal.addEventListener('click', (event) => {
                 if (event.target === enrollmentFormModal) {
-                    hideEnrollmentModal();
+                    hideModal(enrollmentFormModal);
+                }
+            });
+
+            // --- Limited Seats Pop-up Modal Logic ---
+            // Show pop-up on page load
+            setTimeout(() => { // Small delay for better animation visibility
+                showModal(limitedSeatsModal);
+            }, 500); 
+
+            closeLimitedSeatsModalBtn.addEventListener('click', () => hideModal(limitedSeatsModal));
+            dismissLimitedSeatsPopUpBtn.addEventListener('click', () => hideModal(limitedSeatsModal));
+
+            limitedSeatsModal.addEventListener('click', (event) => {
+                if (event.target === limitedSeatsModal) {
+                    hideModal(limitedSeatsModal);
                 }
             });
 
@@ -433,7 +713,7 @@ I'm interested in boosting my sales skills!`;
                 window.open(whatsappUrl, '_blank');
 
                 // Hide the modal after submission
-                hideEnrollmentModal();
+                hideModal(enrollmentFormModal);
             });
 
             // --- Page Load & Initialization ---
