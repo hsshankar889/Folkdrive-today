@@ -3,700 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FolkDrive - Empowering Sales Teams</title>
+    <title>FolkDrive - Sales & Process Efficiency</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Custom Properties for easy theme management */
-        :root {
-            --primary-color: #3b82f6; /* Tailwind blue-500 */
-            --primary-dark: #1e40af; /* Tailwind blue-800 */
-            --light-bg: #f9fafb;     /* Tailwind gray-50 */
-            --dark-bg: #111827;      /* Tailwind gray-900 */
-            --text-primary: #1f2937; /* Tailwind gray-800 */
-            --text-secondary: #4b5563;/* Tailwind gray-600 */
-            --border-color: #e5e7eb; /* Tailwind gray-200, consistent for subtle borders */
-        }
-        
-        /* Base Styles */
+        /* Custom CSS for animations */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
         body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background-color: var(--light-bg);
-            color: var(--text-primary);
-            min-height: 100vh; /* Ensure full height */
-            position: relative; /* For fixed action buttons positioning */
-            display: flex; /* Use flexbox for layout */
-            flex-direction: column; /* Stack header, main, fixed buttons, footer vertically */
+            font-family: 'Roboto', sans-serif; /* Changed font to Roboto */
         }
 
-        /* --- Header Styles --- */
-        header {
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 50;
-            padding: 12px 16px; /* py-3 px-4 */
-        }
-        header .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        header a img {
-            height: 50px;
-            width: auto;
-            border-radius: 8px;
-        }
-        header nav ul {
-            display: flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            gap: 8px; /* space-x-2 */
-            font-size: 16px; /* text-base */
-        }
-        header nav a {
-            display: flex;
-            align-items: center;
-            gap: 4px; /* space-x-1 */
-            padding: 8px; /* p-2 */
-            border-radius: 6px; /* rounded-md */
-            transition: all 0.3s ease; /* transition-colors duration-300 */
-            text-decoration: none;
-            white-space: nowrap; /* Prevent wrapping */
-        }
-        header nav a.active {
-            background-color: var(--primary-color);
-            color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-        }
-        header nav a:not(.active) {
-            color: var(--text-secondary);
-        }
-        header nav a:not(.active):hover {
-            background-color: #eff6ff; /* blue-50 */
-            color: var(--primary-color);
-        }
-        header nav span {
-            display: inline; /* Always show text */
-        }
-
-        main {
-            flex-grow: 1;
-            padding-top: 98px; /* Adjusted for increased fixed header height (50px logo + padding) */
-            padding-bottom: 2rem; /* Add some padding at the bottom for fixed buttons */
-        }
-
-        /* --- Hero Section (Homepage Specific) --- */
-        .hero-homepage {
-            background: linear-gradient(rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.7)), url('https://images.unsplash.com/photo-1556761175-5974b97ea921?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
-            color: white;
-            text-align: center;
-            padding: 8rem 1rem;
-        }
-        .hero-homepage h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-        .hero-homepage p {
-            font-size: 1.5rem;
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-            color: #d1d5db; /* gray-300 */
-        }
-        .hero-homepage .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .hero-homepage .btn-primary, .hero-homepage .btn-secondary {
-            padding: 0.85rem 2.2rem;
-            border-radius: 0.6rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
-        .hero-homepage .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .hero-homepage .btn-primary:hover {
-            background-color: var(--primary-dark);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .hero-homepage .btn-secondary {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-        .hero-homepage .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        /* --- General Section Styling --- */
-        .page-section { /* Generic class for main content sections */
-            background-color: white;
-            padding: 4rem 2rem;
-            border-radius: 1rem;
-            margin: 2rem auto;
-            max-width: 1200px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-        .section-title p {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            margin-top: 0.5rem;
-        }
-
-        /* --- Features Section (Example) --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        .feature-card {
-            background-color: var(--light-bg);
-            border-radius: 0.75rem;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .feature-card i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        .feature-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-        }
-        .feature-card p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-
-        /* --- About Us Snippet Section (Example) --- */
-        .about-snippet {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 2rem;
-        }
-        .about-snippet img {
-            max-width: 100%;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        .about-snippet .text-content {
-            max-width: 800px;
-        }
-        .about-snippet h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
-        .about-snippet p {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        .about-snippet .btn-secondary { /* Reusing btn-secondary style */
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            background-color: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-        }
-        .about-snippet .btn-secondary:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-
-        /* --- Fixed Action Button Styles --- */
-        .fixed-action-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            z-index: 40;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .action-button {
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            color: white;
-            font-size: 1.25rem; /* Icon size */
-        }
-        .action-button.scroll-button {
-            background-color: var(--text-secondary);
-        }
-        .action-button.scroll-button:hover {
-            background-color: var(--text-primary);
-        }
-        .action-button.whatsapp-button {
-            background-color: #25D366;
-        }
-        .action-button.whatsapp-button:hover {
-            background-color: #1DA851;
-        }
-        .action-button:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* --- Animation Classes --- */
-        /* Initial state and transition properties for elements before animation */
-        header, .hero-homepage, .page-section, .fixed-action-btn, footer, .popup-overlay {
-            opacity: 0;
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        header { transform: translateY(-100%); }
-        .hero-homepage, .page-section { transform: translateY(20px); }
-        .fixed-action-btn { transform: scale(0); }
-        footer { transform: translateY(50px); }
-        .popup-overlay { opacity: 0; visibility: hidden; } /* Initial state for popup */
-        
-        .header-active { transform: translateY(0); opacity: 1; }
-        .content-active { transform: translateY(0); opacity: 1; }
-        .fixed-btn-active { transform: scale(1); opacity: 1; }
-        .footer-active { transform: translateY(0); opacity: 1; }
-        .popup-active { opacity: 1; visibility: visible; } /* Active state for popup */
-
-        /* Footer specific styling (consistent with other pages) */
-        footer {
-            background-color: var(--dark-bg);
-            color: white;
-            padding-top: 40px; /* py-10 */
-            padding-bottom: 40px; /* py-10 */
-            margin-top: auto;
-            text-align: center;
-        }
-        footer .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px; /* px-4 */
-        }
-        footer .footer-content {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 32px; /* mb-8 */
-            text-align: left;
-            flex-wrap: wrap;
-            gap: 32px;
-        }
-        footer .footer-col {
-            flex: 1; /* Allows columns to take equal space */
-            min-width: 200px; /* Minimum width for columns before wrapping */
-            max-width: 300px; /* Max width to prevent columns from getting too wide */
-        }
-        footer h4 {
-            font-weight: 700; /* font-bold */
-            font-size: 20px; /* text-xl */
-            margin-bottom: 16px; /* mb-4 */
-            color: white;
-        }
-        footer ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            line-height: 1.5;
-        }
-        footer ul li {
-            margin-bottom: 8px; /* space-y-2 */
-        }
-        footer ul a {
-            display: flex;
-            align-items: center;
-            gap: 8px; /* space-x-2 */
-            color: #9ca3af; /* gray-400 */
-            text-decoration: none;
-            transition: all 0.3s ease;
-            justify-content: flex-start;
-        }
-        footer ul a:hover {
-            color: white;
-        }
-        footer .footer-bottom {
-            text-align: center;
-            font-size: 14px; /* text-sm */
-            border-top: 1px solid #374151; /* border-t gray-700 for separation */
-            padding-top: 24px; /* pt-6 */
-        }
-        footer .footer-bottom p {
-            color: #6b7280; /* gray-500 */
-        }
-
-        /* Styles for the footer logo */
-        .footer-logo {
-            vertical-align: middle;
-            margin-right: 8px;
-            height: 30px;
-            width: auto;
-            border-radius: 4px;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .footer-logo span {
-            color: var(--primary-color);
-        }
-        .footer-logo:first-child {
-            color: white;
-        }
-
-
-        /* Responsive Design: Tablet and Mobile Adjustments */
-        @media (max-width: 1200px) {
-            .features-grid, .about-snippet {
-                flex-direction: column;
-            }
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            .feature-card {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            .footer-content {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .footer-col {
-                width: 100%;
-                max-width: 450px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .footer-content {
-                gap: 24px;
-            }
-            .popup-content {
-                width: 95%;
-                padding: 1.5rem;
-                flex-direction: column; /* Stack content vertically on small screens */
-            }
-            .popup-content .text-column, .popup-content .image-column {
-                width: 100%; /* Full width for columns on small screens */
-                padding: 0; /* Remove padding */
-            }
-            .popup-content .image-column {
-                margin-top: 1rem; /* Space between text and image */
-            }
-            .popup-content h2 {
-                font-size: 1.5rem;
-            }
-            .popup-content .main-offer-text { /* Specific for "Enroll Now & Unlock Your Sales Potential!" */
-                font-size: 1.8rem;
-            }
-            .popup-content ul li {
-                font-size: 0.9rem;
-            }
-            .popup-content .description-text {
-                font-size: 0.9rem;
-            }
-            .popup-button {
-                font-size: 1rem;
-                padding: 0.6rem 1.2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header .container {
-                flex-direction: column;
-                align-items: center;
-            }
-            header nav ul {
-                flex-direction: column;
-                text-align: center;
-                margin-top: 10px;
-                gap: 4px;
-            }
-            header nav a {
-                justify-content: center;
-                padding: 6px 12px;
-            }
-            header {
-                padding: 8px 16px;
-            }
-            main {
-                padding-top: 160px;
-            }
-            .hero-homepage h1 {
-                font-size: 2.5rem;
-            }
-            .hero-homepage p {
-                font-size: 1.125rem;
-            }
-            .hero-homepage .btn-primary, .hero-homepage .btn-secondary {
-                padding: 0.7rem 1.8rem;
-                font-size: 1rem;
-            }
-            .page-section {
-                padding: 2rem 1rem;
-            }
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            .section-title p {
-                font-size: 1rem;
-            }
-            .feature-card h3 {
-                font-size: 1.25rem;
-            }
-            .feature-card p {
-                font-size: 0.875rem;
-            }
-            .about-snippet h2 {
-                font-size: 2rem;
-            }
-            .about-snippet p {
-                font-size: 1rem;
-            }
-            .fixed-action-btn {
-                bottom: 20px;
-                right: 20px;
-                gap: 8px;
-            }
-            .action-button {
-                width: 48px;
-                height: 48px;
-                font-size: 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header nav ul {
-                font-size: 14px;
-            }
-            header nav span {
-                display: inline;
-            }
-            .hero-homepage h1 {
-                font-size: 2rem;
-            }
-            .hero-homepage p {
-                font-size: 0.875rem;
-            }
-            .popup-content h2 {
-                font-size: 1.25rem;
-            }
-            .popup-content .main-offer-text {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* --- Pop-up Banner Styles --- */
-        .popup-overlay {
-            position: fixed;
+        /* Custom slide image styling for smooth transitions */
+        .slide-image {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            border-radius: 1rem; /* rounded-xl */
+        }
+
+        .slide-image.active {
+            opacity: 1;
+        }
+
+        /* Slider dots active state */
+        .slider-dots .dot.active {
+            background-color: #3b82f6; /* Blue-500 */
+            transform: scale(1.2);
+        }
+
+        /* Fixed action buttons */
+        .fixed-action-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .fixed-action-btn.active-animation {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .action-button {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            border: none;
+            border-radius: 9999px; /* full rounded */
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .action-button:hover {
+            background-color: #2563eb; /* Blue-600 */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-button {
+            background-color: #25d366; /* WhatsApp Green */
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1da851;
+        }
+
+        /* Fade-in animations */
+        .fade-in {
             opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.7s ease-out;
         }
-        .popup-overlay.show {
+
+        .fade-in.active-fade-in {
             opacity: 1;
-            visibility: visible;
         }
-        .popup-content {
-            background-color: white; /* White background as per image */
-            color: var(--text-primary); /* Dark text for content */
-            padding: 2.5rem 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            max-width: 550px; /* Adjusted max-width for the new content */
-            width: 90%;
-            position: relative;
-            text-align: center; /* Center content within the popup */
-            display: flex; /* Use flexbox for inner layout */
-            flex-direction: column; /* Stack content vertically */
-            align-items: center; /* Center items horizontally */
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
         }
-        .popup-overlay.show .popup-content {
+
+        .fade-in-up.active-animation {
+            opacity: 1;
             transform: translateY(0);
         }
-        .popup-close-button {
+
+        /* Header backdrop blur */
+        header {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque white */
+        }
+
+        /* Pop-up Banner Styles */
+        #popup-banner {
+            /* Initially hidden and transparent */
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+            /* Ensure it covers the whole screen and is on top */
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            display: flex; /* Use flex to center content */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000; /* Higher than other fixed elements */
+            padding: 1rem; /* Padding for mobile */
+        }
+
+        #popup-banner.show-popup {
+            opacity: 1;
+        }
+
+        #popup-banner .popup-content {
+            background-color: white;
+            border-radius: 1.5rem; /* rounded-2xl */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+            max-width: 30rem; /* max-w-lg */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            /* Initial state for content animation */
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            overflow: hidden; /* Ensures rounded corners on inner elements */
+        }
+
+        #popup-banner.show-popup .popup-content {
+            /* Final state for content animation */
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #close-popup {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: rgba(255, 255, 255, 0.7); /* Slightly transparent white background */
-            border: 1px solid var(--border-color); /* Subtle border */
-            border-radius: 50%; /* Circular button */
-            width: 36px; /* Fixed width */
-            height: 36px; /* Fixed height */
+            background: none;
+            border: none;
+            font-size: 2rem; /* text-3xl */
+            color: #6b7280; /* gray-500 */
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        #close-popup:hover {
+            color: #1f2937; /* gray-800 */
+        }
+
+        /* Define continuous pop-up animation for the button */
+        @keyframes continuous-pop-up {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); } /* Slightly larger at midpoint */
+            100% { transform: scale(1); }
+        }
+
+        /* Style for the image button */
+        .enroll-image-button {
+            display: inline-block; /* Make it behave like a button */
+            width: 160px; /* Set a fixed width for the button */
+            height: 53px; /* Set a fixed height to maintain aspect ratio, adjust as needed */
+            background-image: url('https://static.vecteezy.com/system/resources/previews/008/559/364/non_2x/enroll-now-button-enroll-now-text-web-template-sign-icon-banner-vector.jpg');
+            background-size: cover; /* Make the image cover the entire button area */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            border-radius: 9999px; /* Full rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Initial shadow */
+            border: 2px solid rgba(59, 130, 246, 0.5); /* Light blue border when pop-up is active */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Add border-color to transition */
+            text-indent: -9999px; /* Hide any potential link text */
+            overflow: hidden; /* Ensures content outside border-radius is hidden */
+            cursor: pointer; /* Indicate it's clickable */
+            /* Apply continuous pop-up animation */
+            animation: continuous-pop-up 2s infinite ease-in-out; /* 2 seconds duration, infinite loop, smooth ease-in-out */
+        }
+
+        .enroll-image-button:hover {
+            transform: scale(1.1); /* Slightly larger scale on hover, overriding animation for direct interaction */
+            box-shadow: 0 6px 16px rgba(255, 0, 0, 0.5); /* Red box-shadow on hover */
+            border-color: rgba(255, 0, 0, 0.8); /* Red border on hover */
+            animation: none; /* Stop continuous animation on hover */
+        }
+
+        /* Gradient text for the pop-up message */
+        .gradient-text {
+            background: linear-gradient(to right, #059669, #10b981, #34d399); /* Green gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent; /* Fallback for browsers that don't support background-clip */
+            font-weight: 600; /* Semibold for emphasis */
+        }
+
+        /* New styles for improved pop-up design */
+        .popup-header {
+            background: linear-gradient(to right, #3b82f6, #60a5fa); /* Blue gradient header */
+            padding: 1.5rem 2rem;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+            color: white;
+            margin-bottom: 1.5rem; /* Space between header and content */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem; /* Smaller X */
-            cursor: pointer;
-            color: var(--text-secondary); /* Darker X */
-            transition: all 0.3s ease;
-            z-index: 10; /* Ensure it's above image */
-        }
-        .popup-close-button:hover {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-            transform: scale(1.1);
+            gap: 1rem;
         }
 
-        /* Specific styles for the new popup content */
-        .popup-content .main-offer-text {
-            font-size: 2rem; /* Size for "Enroll Now & Unlock Your Sales Potential!" */
-            font-weight: 800;
-            margin-bottom: 1rem;
+        .popup-header .fas {
+            font-size: 2.5rem; /* Larger icon in header */
+        }
+
+        .popup-header h3 {
+            font-size: 2.25rem; /* Larger heading in header */
+            font-weight: 800; /* Extra bold */
             line-height: 1.2;
-            color: var(--text-primary);
+            margin-bottom: 0; /* Remove default margin */
         }
-        .popup-content ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            align-items: flex-start; /* Align list items to the left */
-            max-width: 300px; /* Constrain width for list */
-            margin-left: auto;
-            margin-right: auto;
+
+        .popup-body {
+            padding: 0 2rem 2rem; /* Padding for the main content area */
         }
-        .popup-content ul li {
-            font-size: 1.1rem;
+
+        .popup-body ul {
+            padding-left: 0; /* Remove default padding from list */
+        }
+
+        .popup-body ul li {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-        }
-        .popup-content ul li i {
-            color: var(--primary-color); /* Checkmark color */
-        }
-        .popup-content .description-text {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            color: #ef4444; /* Red color for this specific text */
-        }
-        .popup-button {
-            display: inline-block;
-            padding: 0.9rem 2.5rem;
-            border-radius: 0.75rem;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #63b3ed 100%); /* Gradient background */
-            color: white;
-            font-weight: 800;
-            font-size: 1.2rem;
-            text-decoration: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            animation: pop-up-button 1.5s infinite alternate; /* Continuous pop-up animation */
-            border: none;
-            cursor: pointer;
-        }
-        .popup-button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%); /* Darker gradient on hover */
-        }
-        /* New animation for continuous pop-up effect */
-        @keyframes pop-up-button {
-            0% { 
-                transform: scale(1); 
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-            100% { 
-                transform: scale(1.05); 
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            }
+            gap: 0.75rem;
+            margin-bottom: 0.75rem; /* Space between list items */
+            font-size: 1.125rem; /* text-lg */
+            text-align: left;
         }
 
-        /* Animation for CTA buttons */
-        @keyframes cta-button-highlight {
-            0% { 
-                transform: scale(1); 
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            50% { 
-                transform: scale(1.02); 
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            }
-            100% { 
-                transform: scale(1); 
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
+        .popup-body ul li .fas {
+            color: #3b82f6; /* Blue checkmark */
+            font-size: 1.25rem; /* Larger checkmark icon */
         }
 
-        .cta-buttons .btn-primary,
-        .cta-buttons .btn-secondary {
-            animation: cta-button-highlight 2s infinite ease-in-out; /* Apply animation */
+        .popup-body p {
+            margin-top: 1.5rem; /* Space above the gradient text */
         }
     </style>
 </head>
-<body class="bg-[var(--light-bg)]">
+<body class="bg-blue-50 text-gray-800 flex flex-col min-h-screen">
     <!-- Header -->
-    <header>
-        <div class="container">
-            <a href="index.html">
-                <img src="./logo-removebg-preview.png" alt="FolkDrive Logo" class="rounded-lg h-14 w-auto" onerror="this.src='https://placehold.co/48x48/1A2B42/FFFFFF?text=Logo';">
+    <header class="bg-white/90 backdrop-blur-md text-gray-800 shadow-sm fixed top-0 left-0 w-full z-50 fade-in">
+        <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between">
+            <a href="index.html" class="mb-4 md:mb-0">
+                <!-- Placeholder for logo. Replace with your actual logo path. -->
+                <img src="./logo-removebg-preview.png" alt="FolkDrive Logo" class="rounded-lg h-14 w-auto">
             </a>
             <nav>
-                <ul>
-                    <li><a href="./index.html" class="active"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <ul class="flex flex-wrap justify-center md:space-x-2 text-sm md:text-base">
+                    <li><a href="./index.html" class="flex items-center space-x-2 bg-blue-600 text-white px-3 py-2 rounded-md font-semibold transition-colors duration-300 hover:bg-blue-700"><i class="fas fa-home"></i> <span>Home</span></a></li>
                     <li><a href="./services.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
                     <li><a href="./methodology.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
                     <li><a href="./about.html" class="flex items-center space-x-2 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 px-3 py-2 rounded-md"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
@@ -705,82 +291,87 @@
             </nav>
         </div>
     </header>
-
+    <br><br>
+<br>
     <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-homepage content-active">
-            <div class="container mx-auto">
-                <h1>Accelerate Your Sales Growth with FolkDrive</h1>
-                <p>We empower sales teams with cutting-edge strategies, training, and tools to consistently exceed targets and build lasting customer relationships.</p>
-                <div class="cta-buttons">
-                    <a href="./services.html" class="btn-primary">Our Services</a>
-                    <a href="./contact.html" class="btn-secondary">Get in Touch</a>
+    <main class="flex-grow pt-[104px] md:pt-[92px]"> <!-- Adjusted padding for new logo size -->
+        <div class="container mx-auto px-4 pt-12 pb-8"> 
+            <div class="welcome-message text-center fade-in-up">
+                <h3 class="text-4xl md:text-4xl font-extrabold text-gray-900 leading-tight md:leading-snug">Your Partner in <span class="text-blue-600">Sales & Process</span> Efficiency</h3>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">We help you streamline operations, accelerate growth, and achieve your most ambitious goals with tailored strategies and expert implementation.</p>
+            </div>
+        </div>
+
+        <!-- Image Slider -->
+        <div class="mb-16 image-slider w-full container mx-auto px-4 fade-in-up">
+            <div class="relative w-full min-h-[50vh] md:min-h-[70vh] overflow-hidden rounded-xl shadow-xl">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sales Acceleration" class="slide-image active" onerror="this.src='https://placehold.co/1200x600/3B82F6/FFFFFF?text=Sales+Acceleration';">
+                <img src="https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Growth Achievement" class="slide-image" onerror="this.src='https://placehold.co/1200x600/6366F1/FFFFFF?text=Growth+Achievement';">
+                <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide-image" alt="Sales Training" onerror="this.src='https://placehold.co/1200x600/3B82F6/FFFFFF?text=Sales+Training';">
+                <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide-image" alt="Process Efficiency" onerror="this.src='https://placehold.co/1200x600/6366F1/FFFFFF?text=Process+Efficiency';">
+
+                <div class="slider-nav absolute inset-y-0 w-full flex justify-between items-center px-4 z-10">
+                    <button class="arrow prev-arrow bg-white/70 text-blue-600 border-none p-3 rounded-full cursor-pointer text-2xl transition-all duration-300 hover:bg-white hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
+                    <button class="arrow next-arrow bg-white/70 text-blue-600 border-none p-3 rounded-full cursor-pointer text-2xl transition-all duration-300 hover:bg-white hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="slider-dots absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+                    <span class="dot w-3 h-3 bg-blue-200/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-blue-400 active" aria-label="Go to Slide 1"></span>
+                    <span class="dot w-3 h-3 bg-blue-200/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-blue-400" aria-label="Go to Slide 2"></span>
+                    <span class="dot w-3 h-3 bg-blue-200/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-blue-400" aria-label="Go to Slide 3"></span>
+                    <span class="dot w-3 h-3 bg-blue-200/60 rounded-full cursor-pointer transition-all duration-300 hover:bg-blue-400" aria-label="Go to Slide 4"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <section class="main-content-section container mx-auto px-4 py-16 md:py-24 bg-white rounded-2xl shadow-lg fade-in-up">
+            <div class="text-center mb-12 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-blue-600 after:rounded-full">
+                <h2 class="text-gray-900 text-3xl md:text-4xl font-extrabold mb-3">Our Core Features</h2>
+                <p class="text-lg md:text-xl text-gray-600">Discover what makes us different</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="feature-card bg-blue-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-blue-200 hover:border-blue-500">
+                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-200 text-blue-700">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Sales Process Awareness</h3>
+                    <p class="leading-relaxed text-gray-600">Understanding steps from lead generation to closing deals, enabling optimized sales strategies, enhanced customer engagement, and increased conversion rates.</p>
+                </div>
+                <!-- Feature Card 2 -->
+                <div class="feature-card bg-blue-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-blue-200 hover:border-blue-500">
+                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-200 text-blue-700">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Strategy & Implementation</h3>
+                    <p class="leading-relaxed text-gray-600">By developing clear plans and executing them effectively, we help organizations drive growth, improve efficiency, and enhance customer satisfaction.</p>
+                </div>
+                <!-- Feature Card 3 -->
+                <div class="feature-card bg-blue-50 p-8 rounded-xl text-center flex flex-col items-center justify-start transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-blue-200 hover:border-blue-500">
+                    <div class="feature-icon w-20 h-20 text-3xl flex items-center justify-center rounded-full mx-auto mb-6 bg-blue-200 text-blue-700">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Evaluation & Tailoring</h3>
+                    <p class="leading-relaxed text-gray-600">Through thorough assessments and customized approaches, we help organizations optimize performance, enhance customer satisfaction, and drive growth.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Features/Why Choose Us Section -->
-        <section class="page-section content-active">
-            <div class="container mx-auto">
-                <div class="section-title">
-                    <h2>Why Choose <span class="text-[var(--primary-color)]">FolkDrive?</span></h2>
-                    <p>We help businesses like yours achieve sales excellence through a unique blend of expertise and innovation.</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>Proven Methodologies</h3>
-                        <p>Leverage our data-driven sales methodologies designed for measurable results.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-users-gear"></i>
-                        <h3>Customized Training</h3>
-                        <p>Tailored training programs to upskill your sales force and boost performance.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-handshake-angle"></i>
-                        <h3>Strategic Partnerships</h3>
-                        <p>Build stronger client relationships with our win-win negotiation strategies.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Innovative Solutions</h3>
-                        <p>Access modern sales tools and techniques to stay ahead of the competition.</p>
-                    </div>
-                </div>
+        <!-- Video Section -->
+        <div class="text-center my-16 md:my-24 media-container-video fade-in-up">
+            <div class="text-center mb-12 relative pb-4 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-20 after:h-1 after:bg-blue-600 after:rounded-full">
+                <h2 class="text-gray-900 text-3xl md:text-4xl font-extrabold mb-3">See Our Process in Action</h2>
             </div>
-        </section>
-
-        <!-- About Us Snippet Section -->
-        <section class="page-section content-active">
-            <div class="container mx-auto">
-                <div class="about-snippet">
-                    <img src="https://placehold.co/600x400/3b82f6/ffffff?text=About+FolkDrive" alt="About FolkDrive" class="w-full md:w-2/3 lg:w-1/2">
-                    <div class="text-content">
-                        <h2>About <span class="text-[var(--primary-color)]">FolkDrive</span></h2>
-                        <p>FolkDrive is dedicated to transforming sales organizations. With years of industry experience, our team provides comprehensive sales consulting, training, and strategic guidance. We believe in empowering every sales professional to unlock their full potential and contribute significantly to business growth.</p>
-                        <a href="./about.html" class="btn-secondary">Learn More About Us</a>
-                    </div>
-                </div>
+            <div class="bg-gray-800 aspect-video max-w-4xl mx-auto flex items-center justify-center rounded-xl shadow-2xl overflow-hidden mt-8">
+                <!-- Ensure the video path is correct or provide a valid URL -->
+                <video src="./7947507-hd_1920_1080_30fps.mp4" autoplay loop muted playsinline class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"></video>
+                <div class="text-gray-300 text-lg p-4 items-center justify-center h-full" style="display:none;">Video content coming soon!</div>
             </div>
-        </section>
-
-        <!-- Call to Action Section (reused from other pages) -->
-        <section class="cta-section container content-active bg-[var(--dark-bg)] py-16 rounded-xl mx-auto mb-8">
-            <div class="section-title">
-                <h2 class="text-white"> <span class="text-blue-400"> Ready to Transform Your Sales?</span></h2>
-                <p class="text-white">Contact us today to discuss your unique sales challenges and discover how FolkDrive can help you achieve sustainable growth.</p>
-            </div>
-            <div class="cta-buttons">
-                <button class="btn-primary">Schedule a Consultation</button>
-                <button class="btn-secondary">Learn More About Us</button>
-            </div>
-        </section>
+        </div>
     </main>
-
+    
     <!-- Fixed Action Buttons -->
-    <div class="fixed-action-btn">
+    <div class="fixed-action-btn fade-in">
         <button id="scroll-to-top" class="action-button scroll-button" aria-label="Scroll to Top" style="display: none;">
             <i class="fas fa-arrow-up"></i>
         </button>
@@ -788,75 +379,90 @@
             <i class="fas fa-arrow-down"></i>
         </button>
         <a href="https://wa.me/919916245531" target="_blank" class="action-button whatsapp-button" aria-label="Chat on WhatsApp">
-            <i class="fab fa-whatsapp"></i>
+            <i class="fab fa-whatsapp text-2xl"></i>
         </a>
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col text-center md:text-left">
-                    <a href="index.html" class="footer-logo">Folk<span class="text-[var(--primary-color)]">drive</span></a>
-                    <p class="mt-2 text-sm leading-relaxed text-gray-400">Empowering Sales Teams to unlock their full potential, enabling them to drive results and exceed targets.</p>
+    <footer class="bg-blue-900 text-white py-12 mt-auto fade-in">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+                <!-- Footer Column 1: Brand -->
+                <div>
+                    <a href="index.html" class="inline-block mb-4 text-3xl font-extrabold text-white transition-colors duration-300">Folk<span class="text-blue-500">drive</span></a>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-300">Empowering Sales Teams to unlock their full potential, enabling them to drive results and exceed targets.</p>
                 </div>
-                <div class="footer-col text-center md:text-left">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="./about.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
-                        <li><a href="./services.html"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
-                        <li><a href="./methodology.html"><i class="fas fa-rocket"></i> <span>Methodology</span></a></li>
+                <!-- Footer Column 2: Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white tracking-wider">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./about.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-info-circle w-4"></i> <span>About Us</span></a></li>
+                        <li><a href="./services.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-handshake"></i> <span>Services</span></a></li>
+                        <li><a href="./methodology.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-rocket w-4"></i> <span>Methodology</span></a></li>
                     </ul>
                 </div>
-                <div class="footer-col text-center md:text-left">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:info@folkdrive.com"><i class="fas fa-envelope"></i> <span>info@folkdrive.com</span></a></li>
+                <!-- Footer Column 3: Contact -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white tracking-wider">Contact</h4>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:info@folkdrive.com" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-envelope w-4"></i> <span>info@folkdrive.com</span></a></li>
                         <li><a href="tel:+919916245531" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-phone w-4"></i> <span>9916245531</span></a></li>
-                        <li><a href="./contact.html"><i class="fas fa-address-book"></i> <span>Contact Form</span></a></li>
+                        <li><a href="./contact.html" class="flex items-center justify-center md:justify-start space-x-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"><i class="fas fa-address-book w-4"></i> <span>Contact Form</span></a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p class="text-gray-500">&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.<br> Powered by <a style="color:white;" href="https://www.folkdrive.in/">Folkdrive India Pvt Ltd</a></p>
+            <div class="text-center text-sm border-t border-blue-800 pt-8">
+                <p class="text-gray-400">&copy; <span id="currentYear"></span> Folkdrive. All Rights Reserved.<br> Powered by <a style="color:white;" href="https://www.folkdrive.in/">Folkdrive India Pvt Ltd</a></p>
             </div>
         </div>
     </footer>
 
-    <!-- Pop-up Banner -->
-    <div id="popupBanner" class="popup-overlay">
-        <div class="popup-content">
-            <button class="popup-close-button" id="closePopupBtn">&times;</button>
-            <div class="text-column">
-                <h2 class="main-offer-text">Enroll Now & Unlock Your Sales Potential!</h2>
-                <ul>
+    <!-- Pop-up Banner HTML -->
+    <div id="popup-banner" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[1000] p-4">
+        <div class="popup-content bg-white rounded-2xl shadow-2xl max-w-lg w-full relative">
+            <button id="close-popup" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold leading-none">&times;</button>
+            
+            <!-- Pop-up Header -->
+            <div class="popup-header">
+                <i class="fas fa-bullhorn"></i>
+                <h3>Enroll Now & Unlock Your Sales Potential!</h3>
+            </div>
+
+            <!-- Pop-up Body -->
+            <div class="popup-body flex flex-col items-center justify-center">
+                <ul class="text-gray-700 leading-relaxed list-none list-inside mb-6 space-y-2 max-w-xs mx-auto">
                     <li><i class="fas fa-check-circle"></i> Boost your sales skills</li>
                     <li><i class="fas fa-check-circle"></i> Enhance your confidence</li>
                     <li><i class="fas fa-check-circle"></i> Drive results and exceed targets</li>
                 </ul>
-                <p class="description-text">Don't miss out! Sign up today and take your sales career to the next level!</p>
-                <button class="popup-button" id="enrollNowPopupBtn">Enroll now!!!!</button>
+                <!-- Text with gradient color -->
+                <p class="gradient-text leading-relaxed mb-6">Don't miss out! Sign up today and take your sales career to the next level!</p>
             </div>
-            <!-- Removed the image-column as it's not part of the new content -->
+            
+            <!-- Modified Enroll button to use the image as background and apply continuous pop-up animation -->
+            <a href="./enroll.html" class="enroll-image-button mb-8" aria-label="Enroll now!"></a>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Dynamically sets the current year in the footer
-            const currentYearSpan = document.getElementById('currentYear');
-            if (currentYearSpan) {
-                currentYearSpan.textContent = new Date().getFullYear();
-            }
-
-            // --- Slider Logic ---
+            // --- Global Variables & Elements ---
             const slides = document.querySelectorAll('.slide-image');
             const dots = document.querySelectorAll('.dot');
             const prevArrow = document.querySelector('.prev-arrow');
             const nextArrow = document.querySelector('.next-arrow');
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
+            
+            // Pop-up banner elements
+            const popupBanner = document.getElementById('popup-banner');
+            const closePopupBtn = document.getElementById('close-popup');
+            const popupContent = popupBanner.querySelector('.popup-content'); // The inner div containing content
+            
             let currentSlide = 0;
             let slideInterval;
 
+            // --- Slider Logic ---
             const showSlide = (index) => {
                 slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
                 dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
@@ -872,18 +478,15 @@
             };
             
             // Slider event listeners
-            if (nextArrow) { // Check if elements exist before adding listeners
-                nextArrow.addEventListener('click', () => {
-                    nextSlide();
-                    startSlider(); // Restart interval on manual navigation
-                });
-            }
-            if (prevArrow) {
-                prevArrow.addEventListener('click', () => {
-                    prevSlide();
-                    startSlider(); // Restart interval
-                });
-            }
+            nextArrow.addEventListener('click', () => {
+                nextSlide();
+                startSlider(); // Restart interval on manual navigation
+            });
+
+            prevArrow.addEventListener('click', () => {
+                prevSlide();
+                startSlider(); // Restart interval
+            });
             
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
@@ -892,88 +495,83 @@
                 });
             });
 
-
             // --- Scroll Button Logic ---
-            const scrollToTopBtn = document.getElementById('scroll-to-top');
-            const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
-            
-            const handleScrollButtons = () => {
+            const handleScroll = () => {
                 const scrollY = window.scrollY;
                 const pageHeight = document.body.offsetHeight;
                 const viewportHeight = window.innerHeight;
 
-                scrollToTopBtn.style.display = scrollY > 300 ? 'flex' : 'none';
-                scrollToBottomBtn.style.display = (pageHeight - (scrollY + viewportHeight) > 300) ? 'flex' : 'none';
+                // Show/hide "scroll to top"
+                if (scrollY > 300) {
+                    scrollToTopBtn.style.display = 'flex';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+
+                // Show/hide "scroll to bottom"
+                // Check if the user is near the bottom of the page
+                if (pageHeight - (scrollY + viewportHeight) > 300) {
+                    scrollToBottomBtn.style.display = 'flex';
+                } else {
+                    scrollToBottomBtn.style.display = 'none';
+                }
             };
             
             scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             scrollToBottomBtn.addEventListener('click', () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
-            window.addEventListener('scroll', handleScrollButtons);
-
-            // --- Page Load & Animation Logic ---
-            const header = document.querySelector('header');
-            const heroHomepage = document.querySelector('.hero-homepage');
-            const pageSections = document.querySelectorAll('.page-section'); // Select all sections with this class
-            const fixedActionBtn = document.querySelector('.fixed-action-btn');
-            const footer = document.querySelector('footer');
-            const popupBanner = document.getElementById('popupBanner'); // Get the popup banner element
-
-            // Initial animations (start immediately)
-            let delay = 0;
-            setTimeout(() => { header.classList.add('header-active'); }, delay);
-            delay += 200;
-            setTimeout(() => { heroHomepage.classList.add('content-active'); }, delay);
-            delay += 200;
-            pageSections.forEach(section => {
-                setTimeout(() => { section.classList.add('content-active'); }, delay);
-                delay += 200;
-            });
-            setTimeout(() => { fixedActionBtn.classList.add('fixed-btn-active'); }, delay);
-            delay += 200;
-            setTimeout(() => { footer.classList.add('footer-active'); }, delay);
-            
-            handleScrollButtons(); // Initial check for scroll buttons
+            window.addEventListener('scroll', handleScroll);
 
             // --- Pop-up Banner Logic ---
-            const closePopupBtn = document.getElementById('closePopupBtn');
-            const enrollNowPopupBtn = document.getElementById('enrollNowPopupBtn'); // Changed ID back to enrollNowPopupBtn
-
-            // Function to show the pop-up
+            // Function to show popup
             const showPopup = () => {
-                popupBanner.classList.add('show');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling when popup is open
+                popupBanner.classList.add('show-popup'); // Add class to trigger opacity and transform transitions
+                // The 'display: flex' is already set in CSS, but 'hidden' class needs to be removed if it was added
+                popupBanner.style.display = 'flex'; // Ensure it's displayed
             };
 
-            // Function to hide the pop-up
+            // Function to hide popup
             const hidePopup = () => {
-                popupBanner.classList.remove('show');
-                document.body.style.overflow = ''; // Re-enable scrolling
+                popupBanner.classList.remove('show-popup'); // Remove class to trigger reverse transitions
+                setTimeout(() => {
+                    popupBanner.style.display = 'none'; // Hide completely after transition
+                }, 500); // Match transition duration in CSS
             };
 
-            // Show popup after a short delay on page load
-            setTimeout(showPopup, 1000); // Show after 1 second
-
-            // Close popup when close button is clicked
+            // Close popup on button click
             closePopupBtn.addEventListener('click', hidePopup);
 
-            // Close popup when clicking outside the content
+            // Close popup if clicking outside the content (on the overlay)
             popupBanner.addEventListener('click', (event) => {
                 if (event.target === popupBanner) {
                     hidePopup();
                 }
             });
 
-            // Handle "Enroll now!!!!" button click in the popup
-            enrollNowPopupBtn.addEventListener('click', () => {
-                hidePopup(); // Hide the popup
-                // Optionally, redirect to a specific enrollment page or trigger another action
-                // window.location.href = './enroll.html'; // Example: redirect to an enrollment page
-                // For this example, it just closes the popup.
-            });
+            // --- Page Load & Initialization ---
+            const init = () => {
+                // Apply initial animations
+                document.querySelector('header').classList.add('active-fade-in');
+                document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('active-animation'));
+                document.querySelector('.fixed-action-btn').classList.add('active-animation');
+                document.querySelector('footer').classList.add('active-fade-in');
 
-            // Initialize slider
-            showSlide(0);
-            startSlider();
+                // Initialize slider
+                showSlide(0);
+                startSlider();
+                
+                // Initialize scroll buttons visibility
+                handleScroll();
+
+                // Set footer year
+                document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+                // Show pop-up banner after all other elements are ready
+                // A small delay can make it feel smoother, but direct call works too
+                showPopup(); 
+            };
+            
+            // Run initialization
+            init();
         });
     </script>
 </body>
