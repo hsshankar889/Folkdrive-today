@@ -139,7 +139,7 @@
 
         main {
             flex-grow: 1;
-            padding-top: 98px; /* Adjusted for increased fixed header height (50px logo + padding) */
+            padding-top: 120px; /* Adjusted for increased fixed header height and desired gap */
             display: block;
         }
 
@@ -317,35 +317,52 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
             margin-bottom: 48px; /* mb-12 */
         }
-        .training-section .grid {
-            display: flex; /* Changed from grid for fixed layout */
-            justify-content: space-between;
+        .training-cards-grid { /* New class name */
+            display: grid; /* Changed to grid */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
             gap: 24px; /* gap-6 */
             margin-top: 32px; /* mt-8 */
         }
-        .training-section .bg-gray-100 {
+        .training-card { /* New class name */
             background-color: #f3f4f6; /* gray-100, a very light gray */
             padding: 24px; /* p-6 */
             border-radius: 8px; /* rounded-lg */
             border-left: 4px solid var(--primary-color); /* border-l-4 with primary-color */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05); /* shadow-md */
             transition: all 0.3s ease; /* transition-all duration-300 */
-            width: 280px; /* Fixed width for training cards */
+            /* Removed fixed width: width: 280px; */
+            display: flex; /* Make it a flex container */
+            flex-direction: column; /* Stack content vertically */
+            align-items: flex-start; /* Align text to the left */
+            text-align: left; /* Ensure text alignment */
         }
-        .training-section .bg-gray-100:hover {
+        .training-card:hover {
             background-color: white;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* hover:shadow-lg */
             transform: translateY(-4px); /* hover:-translate-y-1 */
         }
-        .training-section h3 {
+        .training-card h3 {
             font-size: 20px; /* text-xl */
             font-weight: 600; /* font-semibold */
             color: var(--text-primary); /* text-gray-800 */
             margin-bottom: 12px; /* mb-3 */
         }
-        .training-section p {
+        .training-card p {
             color: var(--text-secondary); /* text-gray-600 */
             font-size: 14px; /* text-sm */
+            margin-bottom: 16px; /* Add margin below paragraph before image */
+        }
+        .training-card img { /* New style for images inside cards */
+            width: 100%;
+            height: 176px; /* Fixed height as per original gallery images */
+            object-fit: cover;
+            border-radius: 8px; /* Rounded corners for images */
+            margin-top: auto; /* Push image to bottom if content is short */
+        }
+
+        /* Removed old .image-gallery styles as it's no longer a separate container */
+        .image-gallery {
+            display: none; /* Hide the old gallery */
         }
 
         /* --- PDCA Section Styles --- */
@@ -376,7 +393,10 @@
             border-radius: 12px; /* rounded-xl */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
             transition: all 0.3s ease;
-            width: 280px; /* Fixed width for PDCA cards */
+            /* width: 280px; Removed fixed width for responsiveness */
+            flex: 1; /* Allow cards to grow and shrink */
+            min-width: 280px; /* Minimum width before wrapping */
+            max-width: 30%; /* Approx 3 per row on large screens */
             border: 1px solid var(--primary-color); /* Primary color border */
             text-align: left; /* Align text within card to left */
             display: flex;
@@ -392,6 +412,15 @@
             font-size: 40px; /* text-4xl */
             color: var(--primary-color);
             margin-bottom: 16px; /* mb-4 */
+            /* Explicitly define display and size for icon container */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px; /* Fixed width for the icon circle */
+            height: 60px; /* Fixed height for the icon circle */
+            background-color: #e0f2fe; /* Light blue background for the circle */
+            border-radius: 50%; /* Make it a circle */
+            flex-shrink: 0; /* Prevent icon container from shrinking */
         }
         .pdca-card h3 {
             font-size: 24px; /* text-2xl */
@@ -402,35 +431,6 @@
         .pdca-card p {
             color: var(--text-primary); /* text-gray-800 */
             line-height: 1.6;
-        }
-
-        /* --- Image Gallery --- */
-        .image-gallery {
-            display: flex; /* Changed from grid for fixed layout */
-            justify-content: space-between;
-            gap: 20px; /* gap-5 */
-            margin-top: 40px; /* mt-10 */
-        }
-        .image-gallery > div {
-            height: 176px; /* h-44 */
-            background-color: #e5e7eb; /* gray-200 */
-            border-radius: 8px; /* rounded-lg */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05); /* shadow-md */
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease; /* transition-transform duration-300 */
-            width: 280px; /* Fixed width for gallery images */
-        }
-        .image-gallery > div:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* hover:shadow-lg */
-        }
-        .image-gallery img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         /* --- Fixed Action Button Styles --- */
@@ -581,18 +581,18 @@
 
         /* Responsive Design: Tablet and Mobile Adjustments */
         @media (max-width: 1200px) {
-            .methodology-section, .training-section .grid, .image-gallery, .pdca-section .pdca-grid, footer .footer-content {
+            .methodology-section, .training-cards-grid, .pdca-section .pdca-grid, footer .footer-content {
                 flex-wrap: wrap; /* Allow wrapping on smaller screens */
                 justify-content: center; /* Center items when wrapped */
             }
 
-            .feature-card, .training-section .bg-gray-100, .image-gallery > div, .pdca-card, footer .footer-col {
+            .feature-card, .training-card, .pdca-card, footer .footer-col {
                 width: 100%; /* Full width on smaller screens */
                 max-width: 450px; /* Max width for cards/columns to prevent them from being too wide on tablet */
                 margin-left: auto;
                 margin-right: auto;
             }
-            .methodology-section, .training-section .grid, .image-gallery, .pdca-section .pdca-grid, footer .footer-content {
+            .methodology-section, .training-cards-grid, .pdca-section .pdca-grid, footer .footer-content {
                 gap: 24px; /* Reduce gap on smaller screens */
             }
         }
@@ -624,10 +624,10 @@
             .page-title-banner p {
                 font-size: 20px; /* text-xl */
             }
-            .methodology-section, .training-section .grid, .image-gallery, .pdca-section .pdca-grid, footer .footer-content {
+            .methodology-section, .training-cards-grid, .pdca-section .pdca-grid, footer .footer-content {
                 padding: 0 8px; /* Less padding on very small screens */
             }
-            .feature-card, .training-section .bg-gray-100, .image-gallery > div, .pdca-card, footer .footer-col {
+            .feature-card, .training-card, .pdca-card, footer .footer-col {
                 max-width: 90%; /* Adjust max-width for very small screens */
             }
             .media-container-video .bg-gray-800 {
@@ -775,12 +775,12 @@
                         <p>Define the problem or opportunity, set objectives, and outline the actions required to achieve the desired outcome. This includes identifying resources and metrics for success.</p>
                     </div>
                     <div class="pdca-card">
-                        <div class="icon"><i class="fas fa-person-digging"></i></div>
+                        <div class="icon"><i class="fas fa-play"></i></div>
                         <h3>Do</h3>
                         <p>Implement the plan on a small scale or in a controlled environment. Collect data and observe the process, avoiding large-scale rollout before evaluation.</p>
                     </div>
                     <div class="pdca-card">
-                        <div class="icon"><i class="fas fa-magnifying-glass-chart"></i></div>
+                        <div class="icon"><i class="fas fa-circle-check"></i></div>
                         <h3>Check</h3>
                         <p>Analyze the results against the objectives set in the 'Plan' phase. Evaluate the effectiveness of the changes, identify deviations, and understand the causes of success or failure.</p>
                     </div>
@@ -794,36 +794,25 @@
 
             <section class="training-section">
                 <h2 class="section-heading">Hands-on Training & Skill Development</h2>
-                <div class="grid">
-                    <div class="bg-gray-100">
+                <div class="training-cards-grid">
+                    <div class="training-card">
                         <h3>1. Role-Playing Simulations</h3>
                         <p>Immerse in realistic sales scenarios with guided feedback from coaches and peers. Develop muscle memory for critical conversations.</p>
-                    </div>
-                    <div class="bg-gray-100">
-                        <h3>2. Interactive Workshops</h3>
-                        <p>Collaborative learning through group exercises, case studies, and solution design challenges that mirror actual customer situations.</p>
-                    </div>
-                    <div class="bg-gray-100">
-                        <h3>3. Personalized Coaching</h3>
-                        <p>One-on-one sessions to address individual challenges, refine techniques and accelerate skill development with targeted feedback.</p>
-                    </div>
-                    <div class="bg-gray-100">
-                        <h3>4. Sales Resources</h3>
-                        <p>Access to playbooks, battle cards, and real-world success stories from top performers across industries.</p>
-                    </div>
-                </div>
-
-                <div class="image-gallery">
-                    <div>
                         <img src="https://library.ascd.org/m/3146668b527a8589/webimage-shutterstock_388588465.jpg" alt="Training Session Photo" onerror="this.src='https://placehold.co/280x176/3b82f6/FFFFFF?text=Training+1';">
                     </div>
-                    <div>
+                    <div class="training-card">
+                        <h3>2. Interactive Workshops</h3>
+                        <p>Collaborative learning through group exercises, case studies, and solution design challenges that mirror actual customer situations.</p>
                         <img src="https://www.sessionlab.com/wp-content/uploads/man-speaking-at-a-corporate-workshop.jpg" alt="Workshop Activity Photo" onerror="this.src='https://placehold.co/280x176/4b5563/FFFFFF?text=Training+2';">
                     </div>
-                    <div>
+                    <div class="training-card">
+                        <h3>3. Personalized Coaching</h3>
+                        <p>One-on-one sessions to address individual challenges, refine techniques and accelerate skill development with targeted feedback.</p>
                         <img src="https://www.shutterstock.com/image-photo/mature-latin-manager-mentor-talking-600nw-2322560109.jpg" alt="Coaching Session Photo" onerror="this.src='https://placehold.co/280x176/3b82f6/FFFFFF?text=Training+3';">
                     </div>
-                    <div>
+                    <div class="training-card">
+                        <h3>4. Sales Resources</h3>
+                        <p>Access to playbooks, battle cards, and real-world success stories from top performers across industries.</p>
                         <img src="https://freedesignfile.com/upload/2018/02/Corporate-Design-Team-Stock-Photo-01.jpg" alt="Team Celebration Photo" onerror="this.src='https://placehold.co/280x176/4b5563/FFFFFF?text=Training+4';">
                     </div>
                 </div>
@@ -845,7 +834,7 @@
         <button id="scroll-to-bottom" class="action-button scroll-button" aria-label="Scroll to Bottom">
             <i class="fas fa-arrow-down"></i>
         </button>
-        <a href="https://wa.me/919916245531" target="_blank" class="action-button whatsapp-button" aria-label="Chat on WhatsApp">
+        <a href="./contact.html" target="_blank" class="action-button whatsapp-button" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
